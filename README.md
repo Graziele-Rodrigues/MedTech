@@ -13,7 +13,12 @@ Sistema para gerenciar um clinica médica, possibilitando, com facilidade, o cad
 3. pip - pacote gerenciamento padrão
 
 ### 🔧 Instalação
-1. Ativar Venv (ambiente virtual para isolamento):
+1. Criar ambiente virtual de isolamento: 
+Se Windows
+```
+$ python -m venv venv
+```
+2. Ativar Venv :
 
 Se Windows
 ```
@@ -24,13 +29,13 @@ Se Linux
 $ venv/bin/activate 
 ```
 
-2. Instalação Django e demais componentes:
+3. Instalação Django e demais componentes:
 
 ```
 $ pip install -r requirements.txt 
 ```
 
-3. Verifique se Django foi instalado com sucesso:
+4. Verifique se Django foi instalado com sucesso:
 ```
 $ python -m django --version
 ```
