@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import lista_atendentes, cria_atendentes, edita_atendentes, deleta_atendentes
+from atendentes.views import lista_atendentes, cria_atendentes, edita_atendentes, deleta_atendentes
 
 urlpatterns = [
     path('', lista_atendentes, name='lista_atendente'),
