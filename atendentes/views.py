@@ -6,7 +6,7 @@ from .forms import AtendentesForm
 
 def lista_atendentes(request):
     atendentes = Atendentes.objects.all()
-    return render(request, 'atendentes.html', {'atendentes': atendentes})
+    return render(request, 'atendentes/atendentes.html', {'atendentes': atendentes})
 
 
 def cria_atendentes(request):
@@ -14,9 +14,9 @@ def cria_atendentes(request):
 
     if form.is_valid():
         form.save()
-        return redirect('lista_atendente')
+        return redirect('lista_atendentes')
 
-    return render(request, 'atendentes-form.html', {'form': form})
+    return render(request, 'atendentes/atendentes-form.html', {'form': form})
 
 
 def edita_atendentes(request, id):
@@ -27,7 +27,7 @@ def edita_atendentes(request, id):
         form.save()
         return redirect('lista_atendente')
 
-    return render(request, 'atendentes-form.html', {'form': form, 'atendentes': atendentes})
+    return render(request, 'atendentes/atendentes-form.html', {'form': form, 'atendentes': atendentes})
 
 
 def deleta_atendentes(request, id):
@@ -37,4 +37,4 @@ def deleta_atendentes(request, id):
         atendentes.delete()
         return redirect('lista_atendente')
 
-    return render(request, 'delete-confirm.html', {'atendentes': atendentes})
+    return render(request, 'atendentes/delete-confirm.html', {'atendentes': atendentes})
