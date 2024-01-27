@@ -1,7 +1,6 @@
+# forms.py
 from django import forms
-# from .models import Funcionario
 
-class LoginForm(forms.ModelForm):
-    class Meta:
-        # model =  Funcionario
-        fields = ['email', 'senha']
+class LoginForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
