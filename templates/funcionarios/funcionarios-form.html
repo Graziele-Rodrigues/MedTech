@@ -1,26 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionários</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        // Inicialmente, oculte os campos específicos de ProfissionalSaude
+        $('[id^=id_registro_cc], [id^=id_especialidade]').closest('div').hide();
+
+        // Quando o valor do campo cargo mudar
+        $('#id_cargo').change(function(){
+            // Se o cargo selecionado for "Profissional de Saúde", mostre os campos específicos de ProfissionalSaude
+            if ($(this).val() == 'Profissional de Saúde') {
+                $('[id^=id_registro_cc], [id^=id_especialidade]').closest('div').show();
+            } else {
+                // Caso contrário, oculte os campos
+                $('[id^=id_registro_cc], [id^=id_especialidade]').closest('div').hide();
+            }
+        });
+    });
+    </script>
 </head>
 <body>
-
-    <h1>Cria/Edita Atendente</h1>
-
-    <form method="POST">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form }}
-        <button type="submit">Save</button>
+        {{ funcionarios_form.as_p }}
+        {{ profissional_saude_form.as_p }}
+        <input type="submit" value="Salvar">
     </form>
-
-
     {% if atendentes %}
-        <a href="{% url 'deleta_atendente' atendentes.id %}">Deletar</a>
+        <a href="{% url 'deleta_funcionario' funcionario.id %}">Deletar</a>
     {% endif %}
-    
 </body>
 </html>

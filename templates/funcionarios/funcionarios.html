@@ -1,23 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionários</title>
 </head>
 <body>
-    <ul>
-        {% for atendente in atendentes %}
-            <a href="{% url 'edita_atendente' atendente.id %}">
-                <li> {{ atendente.nome }}</li>
-                <li> {{ atendente.cargo }}</li>
-                <li> {{ atendente.valor_consulta }}</li>
-            </a>
-        {% endfor %}
-    </ul>
+    <a href="{% url 'cria_funcionario' %}">Cria Funcionario</a>
+    <br>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Cargo</th>
+                <th>Salário</th>
+                <th>Registro CC</th>
+                <th>Especialidade</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for funcionario in funcionarios %}
+                <tr>
+                    <td>{{ funcionario.nome }}</td>
+                    <td>{{ funcionario.telefone }}</td>
+                    <td>{{ funcionario.cargo }}</td>
+                    <td>{{ funcionario.salario }}</td>
 
-    <a href="{% url 'cria_atendente' %}">Cria Atendente</a>
+                    {% if funcionario.cargo|lower == 'profissional de saúde' %}
+                        <td>{{ funcionario.profissionalsaude.registro_cc }}</td>
+                        <td>{{ funcionario.profissionalsaude.especialidade.all|join:", " }}</td>
+                    {% else %}
+                        <td>-</td>
+                        <td>-</td>
+                    {% endif %}
+
+                    <td><a href="{% url 'edita_funcionario' funcionario.id %}">Editar</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </body>
 </html>
