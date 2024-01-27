@@ -1,36 +1,45 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Título da Página</title>
+    <title>Sua Página Inicial</title>
 </head>
 <body>
-    <header>
-        <h1>Meu Site</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
-        </nav>
-    </header>
+<a href="{% url 'criar_paciente' %}"><button>Criar Paciente</button></a>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Telefone secundário</th>
+            <th>Data de nascimento</th>
+            <th>Plano de saúde</th>
+            <th>Endereço</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for paciente in pacientes %}
+            <tr>
+                <td>{{ paciente.nome }}</td>
+                <td>{{ paciente.telefone }}</td>
+                <td>{{ paciente.telefone_secundario }}</td>
+                <td>{{ paciente.data_nascimento }}</td>
+                {% if paciente.plano_saude %}
+                    <td>{{paciente.plano_saude}}</td>
+                {% else %}
+                    <td>Não possui</td>
+                {% endif %}
+                <td>{{ paciente.endereco }}</td>
+                <td><a href="{% url 'editar_paciente' paciente.id %}">Editar</a></td>
+                <td><a href="{% url 'deletar_paciente' paciente.id %}">Deletar</a></td>
+                <td><a href="">Criar consulta</a></td>
+                <td><a href="">Visualizar historico</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-    <section id="conteudo">
-        <article>
-            <h2>Artigo 1</h2>
-            <p>Conteúdo do primeiro artigo...</p>
-        </article>
-
-        <article>
-            <h2>Artigo 2</h2>
-            <p>Conteúdo do segundo artigo...</p>
-        </article>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Meu Site. Todos os direitos reservados.</p>
-    </footer>
 </body>
 </html>

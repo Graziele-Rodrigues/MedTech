@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deletar Paciente</title>
+</head>
+<body>
+
+  <h2>Deletar Paciente</h2>
+
+  <p>Você está prestes a deletar o paciente com as seguintes informações:</p>
+
+  <ul>
+    <li>Nome: {{ paciente.nome }}</li>
+    <li>Telefone: {{ paciente.telefone }}</li>
+    <li>Telefone Secundário: {{ paciente.telefone_secundario }}</li>
+    <li>Data de Nascimento: {{ paciente.data_nascimento }}</li>
+    <li>Plano de Saúde: {{ paciente.plano_saude|default:"Não possui" }}</li>
+    <li>Endereço: {{ paciente.endereco }}</li>
+  </ul>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirmar exclusão</button>
+  </form>
+
+</body>
+</html>
