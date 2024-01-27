@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criação ou Edição de Funcionário</title>
+</head>
+<body>
+    <h1>Edita</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+    
+        <div>
+            <label for="{{ funcionarios_form.nome.id_for_label }}">Nome:</label>
+            {{ funcionarios_form.nome }}
+        </div>
+    
+        <div>
+            <label for="{{ funcionarios_form.telefone.id_for_label }}">Telefone:</label>
+            {{ funcionarios_form.telefone }}
+        </div>
+    
+        <div>
+            <label for="{{ funcionarios_form.salario.id_for_label }}">Salário:</label>
+            {{ funcionarios_form.salario }}
+        </div>
+    
+        <div>
+            <label for="{{ funcionarios_form.cargo.id_for_label }}">Cargo:</label>
+            {{ funcionarios_form.cargo }}
+        </div>
+    
+        <div class="d-none" id="registro">
+            <label for="{{ profissional_saude_form.registro_cc.id_for_label }}">Registro CC:</label>
+            {{ profissional_saude_form.registro_cc }}
+        </div>
+    
+        <div  class="d-none" id="especialidade">
+            <label for="{{ profissional_saude_form.especialidade.id_for_label }}">Especialidade:</label>
+            {{ profissional_saude_form.especialidade }}
+        </div>
+    
+        <button type="submit">Salvar</button>
+    </form>
+    
+    
+    <style>
+        div {
+            margin-bottom: 10px;  /* Ajuste a altura conforme necessário */
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cargo = document.querySelector('#id_cargo');
+            const registro = document.querySelector('#registro');
+            const especialidade = document.querySelector('#especialidade');
+
+            function toggleCamposProfissionalSaude() {
+                const cargoSelecionado = cargo.options[cargo.selectedIndex].text;
+                if (cargoSelecionado === 'profissional de saúde') {
+                    registro.classList.remove('d-none');
+                    especialidade.classList.remove('d-none');
+                } else {
+                    registro.classList.add('d-none');
+                    especialidade.classList.add('d-none');
+                }
+            }
+
+            if (cargo) {
+                cargo.addEventListener('change', toggleCamposProfissionalSaude);
+                toggleCamposProfissionalSaude();  // Chamada inicial
+            }
+        });
+    </script>
+
+    
+</body>
+</html>

@@ -6,7 +6,7 @@
     <title>Criação ou Edição de Funcionário</title>
 </head>
 <body>
-    <h1>Cria/Edita Funcionário</h1>
+    <h1>Cria</h1>
 
     <form method="POST">
         {% csrf_token %}
@@ -36,7 +36,7 @@
             {{ profissional_saude_form.registro_cc }}
         </div>
     
-        <div class="d-none" id="especialidade">
+        <div  class="d-none" id="especialidade">
             <label for="{{ profissional_saude_form.especialidade.id_for_label }}">Especialidade:</label>
             {{ profissional_saude_form.especialidade }}
         </div>
@@ -74,5 +74,6 @@
             }
         });
     </script>
+    
 </body>
 </html>

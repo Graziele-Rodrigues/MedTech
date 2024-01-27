@@ -35,7 +35,7 @@
                         <td>-</td>
                     {% endif %}
 
-                    <td><a href="{% url 'edita_funcionario' funcionario.id %}">Editar</a></br><a href="{% url 'deleta_funcionario' funcionario.id %}">Deletar</a></td>
+                    <td><a href="{% url 'edita_funcionario' funcionario.id  %}">Editar</a></br><a href="{% url 'deleta_funcionario' funcionario.id %}">Deletar</a></td>
 
                 </tr>
             {% endfor %}
