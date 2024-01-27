@@ -16,3 +16,10 @@ class ProfissionalSaudeForm(forms.ModelForm):
         widgets = {
             'especialidade': forms.CheckboxSelectMultiple(),
         }
+        
+    def __init__(self, *args, **kwargs):
+        super(ProfissionalSaudeForm, self).__init__(*args, **kwargs)
+        # Define os campos como não obrigatórios por padrão
+        self.fields['funcionario'].required = False
+        self.fields['registro_cc'].required = False
+        self.fields['especialidade'].required = False

@@ -7,7 +7,7 @@
 </head>
 <body>
     <a href="{% url 'cria_funcionario' %}">Cria Funcionario</a>
-    <br>
+    </br>
     <table border="1">
         <thead>
             <tr>
@@ -17,7 +17,6 @@
                 <th>Salário</th>
                 <th>Registro CC</th>
                 <th>Especialidade</th>
-                <th>Editar</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +35,8 @@
                         <td>-</td>
                     {% endif %}
 
-                    <td><a href="{% url 'edita_funcionario' funcionario.id %}">Editar</a></td>
+                    <td><a href="{% url 'edita_funcionario' funcionario.id %}">Editar</a></br><a href="{% url 'deleta_funcionario' funcionario.id %}">Deletar</a></td>
+
                 </tr>
             {% endfor %}
         </tbody>
