@@ -31,12 +31,12 @@
             {{ funcionarios_form.cargo }}
         </div>
     
-        <div>
+        <div class="d-none" id="registro">
             <label for="{{ profissional_saude_form.registro_cc.id_for_label }}">Registro CC:</label>
             {{ profissional_saude_form.registro_cc }}
         </div>
     
-        <div>
+        <div class="d-none" id="especialidade">
             <label for="{{ profissional_saude_form.especialidade.id_for_label }}">Especialidade:</label>
             {{ profissional_saude_form.especialidade }}
         </div>
@@ -49,7 +49,30 @@
         div {
             margin-bottom: 10px;  /* Ajuste a altura conforme necessário */
         }
+        .d-none {
+            display: none !important;
+        }
     </style>
-    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cargo = document.querySelector('#id_cargo');
+            const registro = document.querySelector('#registro');
+            const especialidade = document.querySelector('#especialidade');
+
+            if (cargo) {
+                cargo.addEventListener('change', () => {
+                    const cargoSelecionado = cargo.options[cargo.selectedIndex].text;
+                    if (cargoSelecionado === 'profissional de saúde') {
+                        registro.classList.remove('d-none');
+                        especialidade.classList.remove('d-none');
+                    } else {
+                        registro.classList.add('d-none');
+                        especialidade.classList.add('d-none');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
