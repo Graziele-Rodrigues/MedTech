@@ -3,35 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Funcionários</title>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-    $(document).ready(function(){
-        // Inicialmente, oculte os campos específicos de ProfissionalSaude
-        $('[id^=id_registro_cc], [id^=id_especialidade]').closest('div').hide();
-
-        // Quando o valor do campo cargo mudar
-        $('#id_cargo').change(function(){
-            // Se o cargo selecionado for "Profissional de Saúde", mostre os campos específicos de ProfissionalSaude
-            if ($(this).val() == 'Profissional de Saúde') {
-                $('[id^=id_registro_cc], [id^=id_especialidade]').closest('div').show();
-            } else {
-                // Caso contrário, oculte os campos
-                $('[id^=id_registro_cc], [id^=id_especialidade]').closest('div').hide();
-            }
-        });
-    });
-    </script>
+    <title>Criação ou Edição de Funcionário</title>
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data">
+    <h1>Cria/Edita Funcionário</h1>
+
+    <form method="POST">
         {% csrf_token %}
-        {{ funcionarios_form.as_p }}
-        {{ profissional_saude_form.as_p }}
-        <input type="submit" value="Salvar">
+    
+        <div>
+            <label for="{{ funcionarios_form.nome.id_for_label }}">Nome:</label>
+            {{ funcionarios_form.nome }}
+        </div>
+    
+        <div>
+            <label for="{{ funcionarios_form.telefone.id_for_label }}">Telefone:</label>
+            {{ funcionarios_form.telefone }}
+        </div>
+    
+        <div>
+            <label for="{{ funcionarios_form.salario.id_for_label }}">Salário:</label>
+            {{ funcionarios_form.salario }}
+        </div>
+    
+        <div>
+            <label for="{{ funcionarios_form.cargo.id_for_label }}">Cargo:</label>
+            {{ funcionarios_form.cargo }}
+        </div>
+    
+        <div>
+            <label for="{{ profissional_saude_form.registro_cc.id_for_label }}">Registro CC:</label>
+            {{ profissional_saude_form.registro_cc }}
+        </div>
+    
+        <div>
+            <label for="{{ profissional_saude_form.especialidade.id_for_label }}">Especialidade:</label>
+            {{ profissional_saude_form.especialidade }}
+        </div>
+    
+        <button type="submit">Salvar</button>
     </form>
-    {% if atendentes %}
-        <a href="{% url 'deleta_funcionario' funcionario.id %}">Deletar</a>
-    {% endif %}
+    
+    
+    <style>
+        div {
+            margin-bottom: 10px;  /* Ajuste a altura conforme necessário */
+        }
+    </style>
+    
 </body>
 </html>

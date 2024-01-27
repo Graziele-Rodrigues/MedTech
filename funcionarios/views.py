@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
-from .models import Funcionarios
-from .forms import FuncionariosForm
+from .models import Funcionarios, ProfissionalSaude
+from .forms import FuncionariosForm, ProfissionalSaudeForm
 
 
 def lista_funcionarios(request):
@@ -10,24 +10,59 @@ def lista_funcionarios(request):
 
 
 def cria_funcionarios(request):
-    form = FuncionariosForm(request.POST or None)
+    funcionarios_form = FuncionariosForm(request.POST or None)
+    profissional_saude_form = ProfissionalSaudeForm(request.POST or None)
 
-    if form.is_valid():
-        form.save()
-        return redirect('lista_funcionario')
+    if request.method == 'POST':
+            if funcionarios_form.is_valid():
+                funcionarios = funcionarios_form.save()
 
-    return render(request, 'funcionarios/funcionarios-form.html', {'form': form})
+            # Verifica se o cargo é "atendente"
+            if funcionarios.cargo.nome.lower() == 'atendente':
+                # Se for atendente, não precisa preencher os campos do ProfissionalSaude
+                funcionarios.save()
+                return redirect('lista_funcionario')
+            
+            # Se não for atendente, continua com a validação e salvamento do ProfissionalSaudeForm
+            if profissional_saude_form.is_valid():
+                profissional_saude_form.instance.funcionario = funcionarios
+                profissional_saude_form.save()
+                return redirect('lista_funcionario')
+            return redirect('lista_funcionario')
+
+    return render(
+        request,
+        'funcionarios/funcionarios-form.html',
+        {'funcionarios_form': funcionarios_form, 'profissional_saude_form': profissional_saude_form}
+    )
 
 
 def edita_funcionarios(request, id):
     funcionarios = Funcionarios.objects.get(id=id)
-    form = FuncionariosForm(request.POST or None, instance=funcionarios)
+    funcionarios_form = FuncionariosForm(request.POST or None, instance=funcionarios)
+    profissional_saude_form = ProfissionalSaudeForm(request.POST or None, instance=funcionarios.profissionalsaude)
 
-    if form.is_valid():
-        form.save()
-        return redirect('lista_funcionario')
+    if request.method == 'POST':
+        if funcionarios_form.is_valid():
+            funcionarios = funcionarios_form.save()
 
-    return render(request, 'funcionarios/funcionarios-form.html', {'form': form, 'funcionarios': funcionarios})
+        # Verifica se o cargo é "atendente"
+        if funcionarios.cargo.nome.lower() == 'atendente':
+            # Se for atendente, não precisa preencher os campos do ProfissionalSaude
+            funcionarios.save()
+            return redirect('lista_funcionario')
+            
+        # Se não for atendente, continua com a validação e salvamento do ProfissionalSaudeForm
+        if profissional_saude_form.is_valid():
+            profissional_saude_form.instance.funcionario = funcionarios
+            profissional_saude_form.save()
+            return redirect('lista_funcionario')
+
+    return render(
+        request,
+        'funcionarios/funcionarios-form.html',
+        {'funcionarios_form': funcionarios_form, 'profissional_saude_form': profissional_saude_form, 'funcionarios': funcionarios}
+    )
 
 
 def deleta_funcionarios(request, id):
