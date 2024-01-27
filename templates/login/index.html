@@ -1,17 +1,55 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="vh-100" style="overflow-x:hidden;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Título da Página</title>
+    <link rel="stylesheet" href="{% static 'all.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <title>MedTech | Login</title>
 </head>
-<body>
-    <header>
-        <h1>PÁGINA DE LOGIN</h1>
-    </header>
-
-    <footer>
-        <p>&copy; 2024 Meu Site. Todos os direitos reservados.</p>
-    </footer>
+<body class="vh-100" style="overflow-x:hidden; display:flex; flex-direction:column;">
+    <div class="my-auto">
+        <div class="col-12">
+            <div class="row d-flex justify-content-center align-items-center text-center">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <img src="{% static 'images/MedTech-LogoBranca.png' %}" alt="Logo MedTech" style="max-height:20rem;">
+                </div>
+            </div>
+        </div>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="col-12">
+                <div class="row d-flex justify-content-center align-items-center mx-4 mb-5">
+                    <div class="col-10 px-3 py-4" style="background-color: #CC2B31;width: 400px;height: 250px;flex-shrink: 0; border-radius:31px;">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div class="col-10 my-1">
+                                <label class="text-white">Email:</label>
+                                <div class="mt-1">
+                                    <input type="email" name="email" class="form-control px-3 py-2" style="border-radius:31px; border: 1px solid #CC2B31; font-size:12px;" placeholder="josearlindo@gmail.com">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div class="col-10 my-1">
+                                <label class="text-white">Senha:</label>
+                                <div class="mt-1">
+                                    <input type="password" name="senha" class="form-control px-3 py-2" style="border-radius:31px; border: 1px solid #CC2B31; font-size:12px;" placeholder="************">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group my-3">
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <button type="submit" class="btn btn-default bg-white p-2 w-75" style="color: #CC2B31; border-radius:31px; font-weight: bolder;">
+                                    Entrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
