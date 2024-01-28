@@ -1,30 +1,92 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Paciente</title>
+    <link rel="stylesheet" href="{% static 'all.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...SuaHashAqui..." crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <title>MedTech | Pacientes</title>
 </head>
 <body>
+  <div class="col-12 no-padding">
+    <div class="row w-100">
+        {% comment %} MENU {% endcomment %}
+        <div class="col-lg-2 col-md-3 col-sm-12 pb-4" style="background-color: #CC2B31;">
+            <div class="col-12 vh-100 w-100">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <img src="{% static 'images/MedTech-LogoVermelha.png' %}" alt="Logo MedTech" class="img-fluid" style="max-height:18rem;max-width:18rem;">
+                </div>
+                <div class="row d-flex justify-content-center align-items-center mb-3">
+                    <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                        <a class="w-100 h-100 btn btn-default text-white">Tela Inicial</a>
+                    </div>
+                    <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                        <a class="w-100 h-100 btn btn-default text-white">Consultas</a>
+                    </div>
+                    <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                        <a class="w-100 h-100 btn btn-default text-white" href="{% url 'lista_funcionario' %}">Funcionários</a>
+                    </div>
+                    <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
+                        <a class="w-100 h-100 btn btn-default" href="{% url 'index' %}" style="color: #CC2B31; font-weight:bold;">Pacientes</a>
+                    </div>
+                    <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                        <a class="w-100 h-100 btn btn-default text-white">Relatórios</a>
+                    </div>
+                    <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                        <a class="w-100 h-100 btn btn-default text-white">Administração</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% comment %} END MENU {% endcomment %}
 
-  <h2>Editar Paciente</h2>
-  <a href="{% url 'index' %}"><button>Lista de pacientes</button></a>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Salvar Alterações</button>
+        <div class="col-lg-10 col-md-9 col-sm-12 no-padding">
+            <div class="col-12 px-4">
+                <div class="row pt-5 mb-4">
+                    <h2 style="color: #CC2B31;"><span class="fa fa-users pr-3"></span> Gestão de Pacientes - Criação</h2>
+                </div>
+                <div>
+                    <a href="{% url 'index' %}" style="background-color: #CC2B31;" class="btn btn-default btn-sm text-white px-2 py-1"><span class="fa fa-arrow-left fa-1x"></span> Voltar</a>
+                </div>
+                <div class="row shadow my-3 py-4 px-2">
+                  <div class="col-lg-6 my-2 border-bottom border-2 pb-3">
+                    <form method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                      <div class="row d-flex justify-content-center align-items-center">
+                          <button class="btn btn-default px-3 py-2 w-75 text-white" style="background-color: #CC2B31;" type="submit">Salvar alterações</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="col-lg-6 my-2">
+                    <div>
+                      <p style="background-color: #CC2B31;border-radius:25px;" class="text-white text-center p-3"><span class="fa fa-info-circle pr-2"></span> Dados atuais do paciente:</p>
+                      <p style="color: #CC2B31;" class="form-control">Nome: {{ paciente.nome }}</p>
+                      <p style="color: #CC2B31;" class="form-control">Telefone: {{ paciente.telefone }}</p>
+                      <p style="color: #CC2B31;" class="form-control">Telefone Secundário: {{ paciente.telefone_secundario }}</p>
+                      <p style="color: #CC2B31;" class="form-control">Data de Nascimento: {{ paciente.data_nascimento }}</p>
+                      <p style="color: #CC2B31;" class="form-control">Plano de Saúde: {{ paciente.plano_saude|default:"Não possui" }}</p>
+                      <p style="color: #CC2B31;" class="form-control">Endereço: {{ paciente.endereco }}</p>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+  </div>
 
-  </form>
-
-  <p>Dados atuais do paciente:</p>
-  <ul>
-    <li>Nome: {{ paciente.nome }}</li>
-    <li>Telefone: {{ paciente.telefone }}</li>
-    <li>Telefone Secundário: {{ paciente.telefone_secundario }}</li>
-    <li>Data de Nascimento: {{ paciente.data_nascimento }}</li>
-    <li>Plano de Saúde: {{ paciente.plano_saude|default:"Não possui" }}</li>
-    <li>Endereço: {{ paciente.endereco }}</li>
-  </ul>
+  <style>
+  label {
+      color: #CC2B31;
+      font-weight:bold;
+  }
+  </style>
 
   <script>
     document.getElementById("id_nome").value = "{{ paciente.nome }}";
@@ -34,6 +96,5 @@
     document.getElementById("id_plano_saude").value = "{{ paciente.plano_saude }}";
     document.getElementById("id_endereco").value = "{{ paciente.endereco }}";
   </script>
-
 </body>
 </html>
