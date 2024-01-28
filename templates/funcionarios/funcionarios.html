@@ -1,46 +1,122 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="overflow-x:hidden;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Funcionários</title>
+    <link rel="stylesheet" href="{% static 'all.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...SuaHashAqui..." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <title>MedTech | Funcionários</title>
 </head>
-<body>
-    <a href="{% url 'cria_funcionario' %}">Cria Funcionario</a>
-    </br>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>Cargo</th>
-                <th>Salário</th>
-                <th>Registro CC</th>
-                <th>Especialidade</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for funcionario in funcionarios %}
-                <tr>
-                    <td>{{ funcionario.nome }}</td>
-                    <td>{{ funcionario.telefone }}</td>
-                    <td>{{ funcionario.cargo }}</td>
-                    <td>{{ funcionario.salario }}</td>
+<body class="vh-100">
+    <div class="col-12 no-padding">
+        <div class="row w-100">
+            {% comment %} MENU {% endcomment %}
+            <div class="col-lg-2 col-md-3 col-sm-12 pb-4" style="background-color: #CC2B31;">
+                <div class="col-12 vh-100">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <img src="{% static 'images/MedTech-LogoVermelha.png' %}" alt="Logo MedTech" class="img-fluid" style="max-height:18rem;max-width:18rem;">
+                    </div>
+                    <div class="row d-flex justify-content-center align-items-center mb-3">
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white">Tela Inicial</a>
+                        </div>
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white">Consultas</a>
+                        </div>
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
+                            <a class="w-100 h-100 btn btn-default" href="{% url 'lista_funcionario' %}" style="color: #CC2B31; font-weight:bold;">Funcionários</a>
+                        </div>
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'index' %}">Pacientes</a>
+                        </div>
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white">Relatórios</a>
+                        </div>
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white">Administração</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% comment %} END MENU {% endcomment %}
 
-                    {% if funcionario.cargo|lower == 'profissional de saúde' %}
-                        <td>{{ funcionario.profissionalsaude.registro_cc }}</td>
-                        <td>{{ funcionario.profissionalsaude.especialidade.all|join:", " }}</td>
-                    {% else %}
-                        <td>-</td>
-                        <td>-</td>
-                    {% endif %}
+            <div class="col-lg-10 col-md-9 col-sm-12 no-padding">
+                <div class="col-12 px-4">
+                    <div class="row pt-5 mb-4">
+                        <h2 style="color: #CC2B31;"><span class="fa fa-users pr-3"></span> Gestão de Funcionários</h2>
+                    </div>
+                    <div class="row pt-2 mt-3">
+                        <div class="col-6">
+                            <a href="{% url 'cria_funcionario' %}" class="btn px-3 py-2 text-white" style="background-color: #CC2B31; border-radius:25px;">Novo Funcionário</a>
+                        </div>
+                    </div>
+                    <div class="row mt-3 px-3">
+                        <table id="table-funcionarios" border="1" class="table table-bordered table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Telefone</th>
+                                    <th>Cargo</th>
+                                    <th>Salário</th>
+                                    <th>Registro CC</th>
+                                    <th>Especialidade</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if funcionarios|length > 0 %}
+                                {% for funcionario in funcionarios %}
+                                    <tr>
+                                        <td>{{ funcionario.nome }}</td>
+                                        <td>{{ funcionario.telefone }}</td>
+                                        <td>{{ funcionario.cargo }}</td>
+                                        <td>{{ funcionario.salario }}</td>
+                                        {% if funcionario.cargo|lower == 'profissional de saúde' %}
+                                            <td>{{ funcionario.profissionalsaude.registro_cc }}</td>
+                                            <td>{{ funcionario.profissionalsaude.especialidade.all|join:", " }}</td>
+                                        {% else %}
+                                            <td>-</td>
+                                            <td>-</td>
+                                        {% endif %}
+                                        <td>
+                                            <small class="my-2 mx-1">
+                                                <a href="{% url 'edita_funcionario' funcionario.id  %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
+                                            </small>
+                                            <small class="my-2 mx-1">
+                                                <a href="{% url 'deleta_funcionario' funcionario.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Deletar"><span class="fa fa-trash fa-1x"></span></a>
+                                            </small>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="text-center py-2">Não há funcionários cadastrados.</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        {% comment %} $(document).ready( function () {
+            $('#table-funcionarios').DataTable();
+        } );
 
-                    <td><a href="{% url 'edita_funcionario' funcionario.id  %}">Editar</a></br><a href="{% url 'deleta_funcionario' funcionario.id %}">Deletar</a></td>
-
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+        $('#table-funcionarios').DataTable( {
+            ordering: true
+        } ); {% endcomment %}
+    </script>
 </body>
 </html>

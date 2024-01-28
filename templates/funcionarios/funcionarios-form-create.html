@@ -1,79 +1,135 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="overflow-x:hidden;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criação ou Edição de Funcionário</title>
-</head>
-<body>
-    <h1>Cria</h1>
+    <link rel="stylesheet" href="{% static 'all.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...SuaHashAqui..." crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <form method="POST">
-        {% csrf_token %}
-    
-        <div>
-            <label for="{{ funcionarios_form.nome.id_for_label }}">Nome:</label>
-            {{ funcionarios_form.nome }}
+    <title>MedTech | Funcionários</title>
+</head>
+<body class="vh-100">
+    <div class="col-12 no-padding">
+        <div class="row w-100">
+            {% comment %} MENU {% endcomment %}
+            <div class="col-lg-2 col-md-3 col-sm-12 pb-4" style="background-color: #CC2B31;">
+                <div class="col-12 vh-100 w-100">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <img src="{% static 'images/MedTech-LogoVermelha.png' %}" alt="Logo MedTech" class="img-fluid" style="max-height:18rem;max-width:18rem;">
+                    </div>
+                    <div class="row d-flex justify-content-center align-items-center mb-3">
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white">Tela Inicial</a>
+                        </div>
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white">Consultas</a>
+                        </div>
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
+                            <a class="w-100 h-100 btn btn-default" href="{% url 'lista_funcionario' %}" style="color: #CC2B31; font-weight:bold;">Funcionários</a>
+                        </div>
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'index' %}">Pacientes</a>
+                        </div>
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white">Relatórios</a>
+                        </div>
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white">Administração</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% comment %} END MENU {% endcomment %}
+
+            <div class="col-lg-10 col-md-9 col-sm-12 no-padding">
+                <div class="col-12 px-4">
+                    <div class="row pt-5 mb-4">
+                        <h2 style="color: #CC2B31;"><span class="fa fa-users pr-3"></span> Gestão de Funcionários - Criação</h2>
+                    </div>
+                    <div>
+                        <a href="{% url 'lista_funcionario' %}" style="background-color: #CC2B31;" class="btn btn-default btn-sm text-white px-2 py-1"><span class="fa fa-arrow-left fa-1x"></span> Voltar</a>
+                    </div>
+                    <div class="row shadow my-3 py-4 px-2">
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="row my-3">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-12 my-2 w-100">
+                                        <label for="{{ funcionarios_form.nome.id_for_label }}">Nome:</label>
+                                        {{ funcionarios_form.nome }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-12 my-2 w-100">
+                                        <label for="{{ funcionarios_form.telefone.id_for_label }}">Telefone:</label>
+                                        {{ funcionarios_form.telefone }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row my-3">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-12 my-2 w-100">
+                                        <label for="{{ funcionarios_form.salario.id_for_label }}">Salário:</label>
+                                        {{ funcionarios_form.salario }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-12 my-2 w-100" id="id_cargo">
+                                        <label for="{{ funcionarios_form.cargo.id_for_label }}">Cargo:</label>
+                                        {{ funcionarios_form.cargo }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row my-3">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-12 my-2 w-100 d-none" id="registro">
+                                        <label for="{{ profissional_saude_form.registro_cc.id_for_label }}">Registro CC:</label>
+                                        {{ profissional_saude_form.registro_cc }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-12 my-2 w-100 d-none" id="especialidade">
+                                        <label for="{{ profissional_saude_form.especialidade.id_for_label }}">Especialidade:</label>
+                                        {{ profissional_saude_form.especialidade }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <button class="btn btn-default px-3 py-2 w-75 text-white" style="background-color: #CC2B31;" type="submit">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    
-        <div>
-            <label for="{{ funcionarios_form.telefone.id_for_label }}">Telefone:</label>
-            {{ funcionarios_form.telefone }}
-        </div>
-    
-        <div>
-            <label for="{{ funcionarios_form.salario.id_for_label }}">Salário:</label>
-            {{ funcionarios_form.salario }}
-        </div>
-    
-        <div>
-            <label for="{{ funcionarios_form.cargo.id_for_label }}">Cargo:</label>
-            {{ funcionarios_form.cargo }}
-        </div>
-    
-        <div class="d-none" id="registro">
-            <label for="{{ profissional_saude_form.registro_cc.id_for_label }}">Registro CC:</label>
-            {{ profissional_saude_form.registro_cc }}
-        </div>
-    
-        <div  class="d-none" id="especialidade">
-            <label for="{{ profissional_saude_form.especialidade.id_for_label }}">Especialidade:</label>
-            {{ profissional_saude_form.especialidade }}
-        </div>
-    
-        <button type="submit">Salvar</button>
-    </form>
-    
-    
+    </div>
+
     <style>
-        div {
-            margin-bottom: 10px;  /* Ajuste a altura conforme necessário */
-        }
-        .d-none {
-            display: none !important;
+        label {
+            color: #CC2B31;
+            font-weight:bold;
         }
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const cargo = document.querySelector('#id_cargo');
-            const registro = document.querySelector('#registro');
-            const especialidade = document.querySelector('#especialidade');
-
-            if (cargo) {
-                cargo.addEventListener('change', () => {
-                    const cargoSelecionado = cargo.options[cargo.selectedIndex].text;
-                    if (cargoSelecionado === 'profissional de saúde') {
-                        registro.classList.remove('d-none');
-                        especialidade.classList.remove('d-none');
-                    } else {
-                        registro.classList.add('d-none');
-                        especialidade.classList.add('d-none');
-                    }
-                });
+        $('#id_cargo').change(function() {
+            const cargoSelecionado = $('#id_cargo option:selected').text();
+            if (cargoSelecionado === 'profissional de saúde' || cargoSelecionado === 'Profissional de saúde' || cargoSelecionado === 'profissional da saúde' || cargoSelecionado === 'Profissional da saúde') {
+                $('#registro').removeClass('d-none');
+                $('#especialidade').removeClass('d-none');
+            } else {
+                $('#registro').addClass('d-none');
+                $('#especialidade').addClass('d-none');
             }
         });
     </script>
-    
 </body>
 </html>
