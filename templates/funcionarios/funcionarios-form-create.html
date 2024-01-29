@@ -128,12 +128,18 @@
             } else {
                 $('#registro').addClass('d-none');
                 $('#especialidade').addClass('d-none');
+                $('#id_registro_cc').val('');
+                $('#id_especialidade').find('input').attr('checked', false).trigger('change');
             }
         });
         document.addEventListener('DOMContentLoaded', function() {
             const inputs = document.querySelectorAll('input');
             inputs.forEach(input => {
-                input.classList.add('form-control');
+                if (input.type !== 'checkbox' && input.type !== 'radio') {
+                    input.classList.add('form-control');
+                } else {
+                    input.classList.add('form-check-input');
+                }
             });
 
             const selects = document.querySelectorAll('select');
