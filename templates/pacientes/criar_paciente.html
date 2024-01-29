@@ -56,7 +56,39 @@
                     <div class="row shadow my-3 py-4 px-2">
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            {{ form.as_p }}
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <label for="{{ pacientes_form.nome.id_for_label }}">Nome:</label>
+                                {{ pacientes_form.nome }}
+                            </div>
+                            <div class="row my-3">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label for="{{ pacientes_form.telefone.id_for_label }}">Telefone:</label>
+                                    {{ pacientes_form.telefone }}
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label for="{{ pacientes_form.telefone_secundario.id_for_label }}">Telefone:</label>
+                                    {{ pacientes_form.telefone_secundario }}
+                                </div>
+                            </div>
+                        
+                            <div class="row my-3">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label for="{{ pacientes_form.data_nascimento.id_for_label }}">Data de Nascimento:</label>
+                                    {{ pacientes_form.data_nascimento }}
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label for="{{ pacientes_form.plano_saude.id_for_label }}">Plano de Saúde:</label>
+                                    {{ pacientes_form.plano_saude }}
+                                </div>
+                            </div>
+                        
+                            <div class="row my-3">
+                                <div class="col-lg-12 col-md-6 col-sm-12">
+                                    <label for="{{ pacientes_form.endereco.id_for_label }}">Endereço:</label>
+                                    {{ pacientes_form.endereco }}
+                                </div>
+                            </div>
+                        
                             <div class="row d-flex justify-content-center align-items-center">
                                 <button class="btn btn-default px-3 py-2 w-75 text-white" style="background-color: #CC2B31;" type="submit">Salvar</button>
                             </div>
