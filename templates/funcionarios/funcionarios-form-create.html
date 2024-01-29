@@ -130,6 +130,34 @@
                 $('#especialidade').addClass('d-none');
             }
         });
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.classList.add('form-control');
+            });
+
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                select.classList.add('form-select');
+            });
+
+            const nome = document.querySelector('input[name="nome"]');
+            nome.setAttribute('placeholder', 'Digite o nome completo');
+
+            const telefone = document.querySelector('input[name="telefone"]');
+            telefone.setAttribute('type', 'tel');
+            telefone.setAttribute('pattern', '[0-9]{2} [0-9]{5}-[0-9]{4}');
+            telefone.setAttribute('placeholder', '00 00000-0000');
+
+            const salario = document.querySelector('input[name="salario"]');
+            salario.setAttribute('type', 'number');
+            salario.setAttribute('step', '0.01');
+            salario.setAttribute('min', '0.00');
+            salario.setAttribute('placeholder', 'R$ 0.00');
+
+            const registro = document.querySelector('input[name="registro_cc"]');
+            registro.setAttribute('placeholder', 'Digite o registro CC');
+        });
     </script>
 </body>
 </html>

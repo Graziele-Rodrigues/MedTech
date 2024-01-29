@@ -128,6 +128,9 @@
             } else {
                 $('#registro').addClass('d-none');
                 $('#especialidade').addClass('d-none');
+                $('#id_registro_cc').val('');
+
+                $('#id_especialidade').find('input').attr('checked', false).trigger('change');
             }
         });
         document.addEventListener('DOMContentLoaded', function() {
