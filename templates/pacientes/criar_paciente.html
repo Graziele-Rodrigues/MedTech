@@ -83,9 +83,11 @@
                             </div>
                         
                             <div class="row my-3">
-                                <div class="col-lg-12 col-md-6 col-sm-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <label for="{{ pacientes_form.endereco.id_for_label }}">Endereço:</label>
-                                    {{ pacientes_form.endereco }}
+                                    <div class="col-12">
+                                        {{ pacientes_form.endereco }}
+                                    </div>
                                 </div>
                             </div>
                         
@@ -105,5 +107,38 @@
             font-weight:bold;
         }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                if (input.type !== 'checkbox' && input.type !== 'radio') {
+                    input.classList.add('form-control');
+                } else {
+                    input.classList.add('form-check-input');
+                }
+            });
+
+            const nome = document.querySelector('input[name="nome"]');
+            nome.setAttribute('placeholder', 'Digite o nome completo');
+
+            const telefone = document.querySelector('input[name="telefone"]');
+            telefone.setAttribute('type', 'tel');
+            telefone.setAttribute('pattern', '[0-9]{2} [0-9]{5}-[0-9]{4}');
+            telefone.setAttribute('placeholder', '00 00000-0000');
+
+            const telefone2 = document.querySelector('input[name="telefone_secundario"]');
+            telefone2.setAttribute('type', 'tel');
+            telefone2.setAttribute('pattern', '[0-9]{2} [0-9]{5}-[0-9]{4}');
+            telefone2.setAttribute('placeholder', '00 00000-0000');
+
+            const plano_saude = document.querySelector('input[name="plano_saude"]');
+            plano_saude.setAttribute('placeholder', 'Digite o plano de saúde');
+
+            const endereco = document.querySelector('textarea[name="endereco"]');
+            endereco.setAttribute('placeholder', 'Digite o endereço completo');
+            endereco.classList.add('w-100');
+        });
+    </script>
 </body>
 </html>
