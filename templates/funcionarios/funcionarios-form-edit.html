@@ -17,16 +17,18 @@
         <div class="row w-100">
             {% comment %} MENU {% endcomment %}
             <div class="col-lg-2 col-md-3 col-sm-12 pb-4" style="background-color: #CC2B31;">
-                <div class="col-12 vh-100 w-100">
+                <div class="col-12 vh-100">
                     <div class="row d-flex justify-content-center align-items-center">
                         <img src="{% static 'images/MedTech-LogoVermelha.png' %}" alt="Logo MedTech" class="img-fluid" style="max-height:18rem;max-width:18rem;">
                     </div>
                     <div class="row d-flex justify-content-center align-items-center mb-3">
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white">Tela Inicial</a>
+                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'tela-inicial' %}">Tela Inicial</a>
                         </div>
-                        {% comment %} {% if user.groups.filter(name='admin').exists or user.groups.filter(name='atendente').exists %} {% endcomment %}
-                        {% if user.groups.filter(name='atendente').exists %}
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'index' %}">Pacientes</a>
+                        </div>
+                        {% if user.groups.filter(name="admin") || user.groups.filter(name="atendente") %}
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Consultas</a>
                         </div>
@@ -40,10 +42,6 @@
                             <a class="w-100 h-100 btn btn-default text-white">Administração</a>
                         </div>
                         {% endif %}
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'index' %}">Pacientes</a>
-                        </div>
-                        
                     </div>
                 </div>
             </div>

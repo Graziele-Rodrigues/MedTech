@@ -26,13 +26,14 @@
                             <a class="w-100 h-100 btn btn-default" style="color: #CC2B31; font-weight:bold;">Tela Inicial</a>
                         </div>
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'index' %}">Pacientes</a>
+                        </div>
+                        {% comment %} {% if user.groups.filter(name="admin") || user.groups.filter(name="atendente") %} {% endcomment %}
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Consultas</a>
                         </div>
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white" href="{% url 'lista_funcionario' %}">Funcionários</a>
-                        </div>
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'index' %}">Pacientes</a>
                         </div>
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Relatórios</a>
@@ -40,6 +41,7 @@
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Administração</a>
                         </div>
+                        {% comment %} {% endif %} {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -50,9 +52,7 @@
                     <div class="row pt-5 mb-4">
                         <h2 style="color: #CC2B31;"><span class="fa fa-home pr-3"></span> Tela Inicial</h2>
                         <br>
-                        {% comment %} {% if user.groups.filter(name="admin").exists or user.groups.filter(name="profissional_da_saude").exists %} {% endcomment %}
                         <h5 style="color: #CC2B31;">Atendimentos do dia:</h5>
-                        {% comment %} {% endif %} {% endcomment %}
                     </div>
                     <div class="col-12">
                         <div class="row mt-3 px-3">
@@ -90,8 +90,6 @@
                                                     <a href="{% url 'deletar_paciente' paciente.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Deletar"><span class="fa fa-trash fa-1x"></span></a>
                                                 </small> {% endcomment %}
                                             </td>
-                                            {% comment %} <td><a href="{% url 'editar_paciente' paciente.id %}">Editar</a></td>
-                                            <td><a href="{% url 'deletar_paciente' paciente.id %}">Deletar</a></td> {% endcomment %}
                                         </tr>
                                     {% endfor %}
                                     {% else %}
@@ -115,7 +113,6 @@
                     [3, 'desc']
                 ],
                 scrollX: true,
-                scrollY: 200,
                 language: {
                     "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json",
                     zeroRecords: 'Não foi encontrado nada, desculpe!'

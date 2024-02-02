@@ -25,14 +25,15 @@
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white" href="{% url 'tela-inicial' %}">Tela Inicial</a>
                         </div>
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
+                            <a class="w-100 h-100 btn btn-default" href="{% url 'index' %}" style="color: #CC2B31; font-weight:bold;">Pacientes</a>
+                        </div>
+                        {% comment %} {% if user.groups.filter(name="admin") || user.groups.filter(name="atendente") %} {% endcomment %}
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Consultas</a>
                         </div>
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white" href="{% url 'lista_funcionario' %}">Funcionários</a>
-                        </div>
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
-                            <a class="w-100 h-100 btn btn-default" href="{% url 'index' %}" style="color: #CC2B31; font-weight:bold;">Pacientes</a>
                         </div>
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Relatórios</a>
@@ -40,6 +41,7 @@
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Administração</a>
                         </div>
+                        {% comment %} {% endif %} {% endcomment %}
                     </div>
                 </div>
             </div>
