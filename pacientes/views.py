@@ -36,6 +36,6 @@ def delete_paciente(request, paciente_id):
 
     if request.method == 'POST':
         paciente.delete()
-        return redirect('index') 
+        return redirect('index')
 
     return render(request, 'pacientes/delete_paciente.html', {'paciente': paciente})

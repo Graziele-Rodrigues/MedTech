@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
+from pacientes.models import Paciente
 
 def index(request):
     return render(request, 'login/index.html')
@@ -15,9 +16,13 @@ def user_login(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('tela_inicial')  # Substitua 'tela_inicial' pelo nome da sua view
+                return redirect('login/tela-inicial.html') # Substitua 'tela_inicial' pelo nome da sua view
 
             else:
                 form = AuthenticationForm()
 
                 return render(request, 'login/index.html', {'form': form})
+
+def tela_inicial(request):
+    pacientes = Paciente.objects.all()
+    return render(request,'login/tela-inicial.html', {'pacientes': pacientes})

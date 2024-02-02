@@ -10,9 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...SuaHashAqui..." crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
     <title>MedTech | Funcionários</title>
 </head>
 <body class="vh-100">
@@ -26,7 +23,7 @@
                     </div>
                     <div class="row d-flex justify-content-center align-items-center mb-3">
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white">Tela Inicial</a>
+                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'tela-inicial' %}">Tela Inicial</a>
                         </div>
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Consultas</a>
@@ -58,51 +55,47 @@
                             <a href="{% url 'cria_funcionario' %}" class="btn px-3 py-2 text-white" style="background-color: #CC2B31; border-radius:25px;">Novo Funcionário</a>
                         </div>
                     </div>
-                    <div class="row mt-3 px-3">
-                        <table id="table-funcionarios" border="1" class="table table-bordered table-responsive">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Telefone</th>
-                                    <th>Cargo</th>
-                                    <th>Salário</th>
-                                    <th>Registro CC</th>
-                                    <th>Especialidade</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% if funcionarios|length > 0 %}
-                                {% for funcionario in funcionarios %}
+                    <div class="col-12">
+                        <div class="row mt-3 px-3">
+                            <table id="table-funcionario" style="100%" border="1" class="table table-bordered table-responsive">
+                                <thead>
                                     <tr>
-                                        <td>{{ funcionario.nome }}</td>
-                                        <td>{{ funcionario.telefone }}</td>
-                                        <td>{{ funcionario.cargo }}</td>
-                                        <td>{{ funcionario.salario }}</td>
-                                        {% if funcionario.cargo|lower == 'profissional de saúde' %}
-                                            <td>{{ funcionario.profissionalsaude.registro_cc }}</td>
-                                            <td>{{ funcionario.profissionalsaude.especialidade.all|join:", " }}</td>
-                                        {% else %}
-                                            <td>-</td>
-                                            <td>-</td>
-                                        {% endif %}
-                                        <td>
-                                            <small class="my-2 mx-1">
-                                                <a href="{% url 'edita_funcionario' funcionario.id  %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
-                                            </small>
-                                            <small class="my-2 mx-1">
-                                                <a href="{% url 'deleta_funcionario' funcionario.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Deletar"><span class="fa fa-trash fa-1x"></span></a>
-                                            </small>
-                                        </td>
+                                        <th>Nome</th>
+                                        <th>Telefone</th>
+                                        <th>Cargo</th>
+                                        <th>Salário</th>
+                                        <th>Registro CC</th>
+                                        <th>Especialidade</th>
+                                        <th>Ações</th>
                                     </tr>
-                                {% endfor %}
-                                {% else %}
-                                    <tr>
-                                        <td colspan="6" class="text-center py-2">Não há funcionários cadastrados.</td>
-                                    </tr>
-                                {% endif %}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {% for funcionario in funcionarios %}
+                                        <tr>
+                                            <td>{{ funcionario.nome }}</td>
+                                            <td>{{ funcionario.telefone }}</td>
+                                            <td>{{ funcionario.cargo }}</td>
+                                            <td>{{ funcionario.salario }}</td>
+                                            {% if funcionario.cargo|lower == 'profissional de saúde' %}
+                                                <td>{{ funcionario.profissionalsaude.registro_cc }}</td>
+                                                <td>{{ funcionario.profissionalsaude.especialidade.all|join:", " }}</td>
+                                            {% else %}
+                                                <td>-</td>
+                                                <td>-</td>
+                                            {% endif %}
+                                            <td>
+                                                <small class="my-2 mx-1">
+                                                    <a href="{% url 'edita_funcionario' funcionario.id  %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
+                                                </small>
+                                                <small class="my-2 mx-1">
+                                                    <a href="{% url 'deleta_funcionario' funcionario.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Deletar"><span class="fa fa-trash fa-1x"></span></a>
+                                                </small>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,13 +103,17 @@
     </div>
     
     <script>
-        {% comment %} $(document).ready( function () {
-            $('#table-funcionarios').DataTable();
-        } );
-
-        $('#table-funcionarios').DataTable( {
-            ordering: true
-        } ); {% endcomment %}
+        document.addEventListener('DOMContentLoaded', function() {
+            new DataTable('#table-funcionario', {
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json",
+                },
+            });
+        });
     </script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </body>
 </html>

@@ -25,6 +25,8 @@
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Tela Inicial</a>
                         </div>
+                        {% comment %} {% if user.groups.filter(name='admin').exists or user.groups.filter(name='atendente').exists %} {% endcomment %}
+                        {% if user.groups.filter(name='atendente').exists %}
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Consultas</a>
                         </div>
@@ -32,14 +34,16 @@
                             <a class="w-100 h-100 btn btn-default" href="{% url 'lista_funcionario' %}" style="color: #CC2B31; font-weight:bold;">Funcionários</a>
                         </div>
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'index' %}">Pacientes</a>
-                        </div>
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Relatórios</a>
                         </div>
                         <div class="border border-2 border-white py-2 px-1 w-100 text-center">
                             <a class="w-100 h-100 btn btn-default text-white">Administração</a>
                         </div>
+                        {% endif %}
+                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'index' %}">Pacientes</a>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
