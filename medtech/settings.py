@@ -130,3 +130,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'tela-inicial'
+LOGIN_URL = 'login'

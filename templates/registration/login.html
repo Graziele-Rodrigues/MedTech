@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <form method="post" action="{% url 'login' %}">
+        <form method="post">
             {% csrf_token %}
             <div class="col-12">
                 <div class="row d-flex justify-content-center align-items-center mx-4 mb-5">
@@ -27,8 +27,7 @@
                             <div class="col-10 my-1">
                                 <label class="text-white">Email:</label>
                                 <div class="mt-1">
-                                    {{ form.email}}
-                                    <input type="email" name="{{ form.email.name }}" value="{{ form.email.value }}" class="form-control px-3 py-2" style="border-radius:31px; border: 1px solid #CC2B31; font-size:12px;" placeholder="josearlindo@gmail.com">
+                                    <input type="email" name="username" class="form-control px-3 py-2" style="border-radius:31px; border: 1px solid #CC2B31; font-size:12px;" placeholder="josearlindo@gmail.com">
                                 </div>
                             </div>
                         </div>
@@ -36,7 +35,7 @@
                             <div class="col-10 my-1">
                                 <label class="text-white">Senha:</label>
                                 <div class="mt-1">
-                                    <input type="password" name="{{ form.password.name }}" class="form-control px-3 py-2" style="border-radius:31px; border: 1px solid #CC2B31; font-size:12px;" placeholder="************">
+                                    <input type="password" name="password"  class="form-control px-3 py-2" style="border-radius:31px; border: 1px solid #CC2B31; font-size:12px;" placeholder="************">
                                 </div>
                             </div>
                         </div>
