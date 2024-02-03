@@ -24,5 +24,17 @@ def user_login(request):
                 return render(request, 'login/index.html', {'form': form})
 
 def tela_inicial(request):
+    # VERIFICAR SE O USUÁRIO LOGADO É UM PROFISSIONAL DE SAÚDE, CASO SEJA FILTRAR AS CONSULTAS
+        # if request.user.groups.filter(name='profissional_saude').exists():
+        #     consultas = Consultas.objects.filter(medico_id=request.user.id)
+        # else:
+        #     consultas = Consultas.objects.all()
     pacientes = Paciente.objects.all()
     return render(request,'login/tela-inicial.html', {'pacientes': pacientes})
+
+# FUNÇÕES APENAS PARA CRIAÇÃO DO FRONT-END
+def consultas(request):
+    return render(request, 'consultas/consultas.html')
+
+def visualizar_consulta(request):
+    return render(request, 'consultas/visualizar-consulta.html')

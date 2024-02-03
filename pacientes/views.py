@@ -39,3 +39,8 @@ def delete_paciente(request, paciente_id):
         return redirect('index')
 
     return render(request, 'pacientes/delete_paciente.html', {'paciente': paciente})
+
+def visualizar_paciente(request, paciente_id):
+    paciente = get_object_or_404(Paciente, pk=paciente_id)
+    alergias =  'Teste, Teste, Teste, Teste'
+    return render(request, 'pacientes/visualizar_paciente.html', {'paciente': paciente, 'alergias': alergias})

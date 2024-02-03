@@ -17,33 +17,7 @@
         <div class="row w-100">
             {% comment %} MENU {% endcomment %}
             <div class="col-lg-2 col-md-3 col-sm-12 pb-4" style="background-color: #CC2B31;">
-                <div class="col-12 vh-100">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <img src="{% static 'images/MedTech-LogoVermelha.png' %}" alt="Logo MedTech" class="img-fluid" style="max-height:18rem;max-width:18rem;">
-                    </div>
-                    <div class="row d-flex justify-content-center align-items-center mb-3">
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'tela-inicial' %}">Tela Inicial</a>
-                        </div>
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
-                            <a class="w-100 h-100 btn btn-default" href="{% url 'index' %}" style="color: #CC2B31; font-weight:bold;">Pacientes</a>
-                        </div>
-                        {% comment %} {% if user.groups.filter(name="admin") || user.groups.filter(name="atendente") %} {% endcomment %}
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white">Consultas</a>
-                        </div>
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'lista_funcionario' %}">Funcionários</a>
-                        </div>
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white">Relatórios</a>
-                        </div>
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white">Administração</a>
-                        </div>
-                        {% comment %} {% endif %} {% endcomment %}
-                    </div>
-                </div>
+                {% include 'menu.html' %}
             </div>
             {% comment %} END MENU {% endcomment %}
 
@@ -68,7 +42,7 @@
                                     {{ pacientes_form.telefone }}
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <label for="{{ pacientes_form.telefone_secundario.id_for_label }}">Telefone:</label>
+                                    <label for="{{ pacientes_form.telefone_secundario.id_for_label }}">Telefone secundário:</label>
                                     {{ pacientes_form.telefone_secundario }}
                                 </div>
                             </div>

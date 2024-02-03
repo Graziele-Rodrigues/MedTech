@@ -17,33 +17,7 @@
         <div class="row w-100">
             {% comment %} MENU {% endcomment %}
             <div class="col-lg-2 col-md-3 col-sm-12 pb-4" style="background-color: #CC2B31;">
-                <div class="col-12 vh-100">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <img src="{% static 'images/MedTech-LogoVermelha.png' %}" alt="Logo MedTech" class="img-fluid" style="max-height:18rem;max-width:18rem;">
-                    </div>
-                    <div class="row d-flex justify-content-center align-items-center mb-3">
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
-                            <a class="w-100 h-100 btn btn-default" style="color: #CC2B31; font-weight:bold;">Tela Inicial</a>
-                        </div>
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'index' %}">Pacientes</a>
-                        </div>
-                        {% comment %} {% if user.groups.filter(name="admin") || user.groups.filter(name="atendente") %} {% endcomment %}
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white">Consultas</a>
-                        </div>
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white" href="{% url 'lista_funcionario' %}">Funcionários</a>
-                        </div>
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white">Relatórios</a>
-                        </div>
-                        <div class="border border-2 border-white py-2 px-1 w-100 text-center">
-                            <a class="w-100 h-100 btn btn-default text-white">Administração</a>
-                        </div>
-                        {% comment %} {% endif %} {% endcomment %}
-                    </div>
-                </div>
+                {% include 'menu.html' %}
             </div>
             {% comment %} END MENU {% endcomment %}
 
@@ -56,47 +30,31 @@
                     </div>
                     <div class="col-12">
                         <div class="row mt-3 px-3">
-                            <table id="table-pacientes" border="1" class="table table-bordered table-responsive">
+                            <table id="table-consultas" border="1" class="table table-bordered table-responsive">
                                 <thead>
                                     <tr>
-                                        <th>Nome</th>
+                                        <th>Paciente</th>
                                         <th>Telefone</th>
-                                        <th>Telefone secundário</th>
-                                        <th>Data de nascimento</th>
-                                        <th>Plano de saúde</th>
-                                        <th>Endereço</th>
+                                        <th>Médico</th>
+                                        <th>Horário</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% if pacientes|length > 0 %}
-                                    {% for paciente in pacientes %}
+                                    {% comment %} {% for consulta in consultas %} {% endcomment %}
                                         <tr>
-                                            <td>{{ paciente.nome }}</td>
-                                            <td>{{ paciente.telefone }}</td>
-                                            <td>{{ paciente.telefone_secundario }}</td>
-                                            <td>{{ paciente.data_nascimento }}</td>
-                                            {% if paciente.plano_saude %}
-                                                <td>{{paciente.plano_saude}}</td>
-                                            {% else %}
-                                                <td>Não possui</td>
-                                            {% endif %}
-                                            <td>{{ paciente.endereco }}</td>
+                                            <td>Teste paciente</td>
+                                            <td>Teste paciente telefone</td>
+                                            <td>Teste Médico</td>
+                                            <td>20/05/2024 14:00</td>
                                             <td>
-                                                {% comment %} <small class="my-2 mx-1">
-                                                    <a href="{% url 'editar_paciente' paciente.id  %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
-                                                </small>
                                                 <small class="my-2 mx-1">
-                                                    <a href="{% url 'deletar_paciente' paciente.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Deletar"><span class="fa fa-trash fa-1x"></span></a>
-                                                </small> {% endcomment %}
+                                                    {% comment %} Adicionar rota para visualizar uma Consulta href="{% url 'deletar_paciente' paciente.id %}" {% endcomment %}
+                                                    <a class="btn btn-dark btn-sm" style="border-radius:50%;" href="{% url 'visualizar-consulta' %}" data-toggle="tooltip" title="Visualizar"><span class="fa fa-eye fa-1x"></span></a>
+                                                </small>
                                             </td>
                                         </tr>
-                                    {% endfor %}
-                                    {% else %}
-                                        <tr>
-                                            <td colspan="6" class="text-center py-2">Não há funcionários cadastrados.</td>
-                                        </tr>
-                                    {% endif %}
+                                    {% comment %} {% endfor %} {% endcomment %}
                                 </tbody>
                             </table>
                         </div>
@@ -108,11 +66,10 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            new DataTable('#table-pacientes', {
+            new DataTable('#table-consultas', {
                 order: [
                     [3, 'desc']
                 ],
-                scrollX: true,
                 language: {
                     "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json",
                     zeroRecords: 'Não foi encontrado nada, desculpe!'
