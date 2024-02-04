@@ -42,11 +42,11 @@
                             <div class="col-lg-9 col-md-9 col-sm-8">
                                 <div class="col-12">
                                   <label>Nome paciente:</label>
-                                  <h5>Teste paciente</h5>
+                                  <h5>{{ consulta.paciente.nome }}</h5>
                                 </div>
                                 <div class="col-12">
                                   <label>Idade:</label>
-                                  <h5>36 anos</h5>
+                                  <h5>{{ consulta.paciente.idade }}</h5>
                                 </div>
                             </div>
                         </div>
@@ -62,18 +62,19 @@
                             <div class="col-lg-9 col-md-9 col-sm-8">
                                 <div class="col-12">
                                   <label>Nome médico:</label>
-                                  <h5>Teste médico</h5>  
+                                  <h5>{{ consulta.profissional.funcionario.nome }}</h5>  
                                 </div>
                                 <div class="col-12">
-                                  <label>Idade:</label>
-                                  <h5>36 anos</h5>  
+                                  <label>Especialização:</label>
+                                    {% comment %} <h5>{{ consulta.profissional.especialidade }}</h5> {% endcomment %}
+                                    <h5>Médico (Texto Fixo)</h5>
                                 </div>
                             </div>
                         </div>
                         <div class="row mt-3 px-3 shadow py-2 px-2" style="background-color: #CC2B31;">
                             <div class="col-12">
                                 <div class="row text-white">
-                                  <h6><span class="fa fa-clock pr-2"></span>  Horário: 21/02/2024 ás 17:00</h6>
+                                  <h6><span class="fa fa-clock pr-2"></span>  Horário: {{ consulta.data_hora }}</h6>
                                 </div>
                             </div>
                         </div>
