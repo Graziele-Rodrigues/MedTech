@@ -12,7 +12,7 @@ class Consultas(models.Model):
         ('concluída', 'Concluída'),
         ('cancelada', 'Cancelada'),
     )
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='agendada')
 
     def __str__(self):
         return f"Consulta em {self.data_hora} com {self.paciente.nome} - Status: {self.status}"

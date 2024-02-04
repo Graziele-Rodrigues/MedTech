@@ -1,0 +1,58 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'all.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...SuaHashAqui..." crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <title>MedTech | Funcionários</title>
+</head>
+<body>
+  <div class="col-12 no-padding">
+    <div class="row w-100">
+        {% comment %} MENU {% endcomment %}
+        <div class="col-lg-2 col-md-3 col-sm-12 pb-4" style="background-color: #CC2B31;">
+            {% include 'menu.html' %}
+        </div>
+        {% comment %} END MENU {% endcomment %}
+
+        <div class="col-lg-10 col-md-9 col-sm-12 no-padding">
+            <div class="col-12 px-4">
+                <div class="row pt-5 mb-4">
+                    <h2 style="color: #CC2B31;"><span class="fa fa-hospital-user pr-3"></span> Gestão de Consultas - Deletar</h2>
+                </div>
+                <div>
+                    <a href="{% url 'consultas' %}" style="background-color: #CC2B31;" class="btn btn-default btn-sm text-white px-2 py-1"><span class="fa fa-arrow-left fa-1x"></span> Voltar</a>
+                </div>
+                <div class="row shadow my-3 py-4 px-2">
+                    <h5 class="text-danger h5"><strong><span class="fa fa-info-circle pr-2"></span> Atenção: </strong>Você está prestes a deletar a consulta com as seguintes informações:</h5>
+                    <div class="row d-flex justify-content-center align-items-center px-4">
+                      <div class="col-lg-8">
+                        <p class="text-danger text-black form-control">Paciente: {{ consulta.paciente }}</p>
+                        <p class="text-danger text-black form-control">Profissional: {{ consulta.profissional }}</p>
+                        <p class="text-danger text-black form-control">Data e hora: {{ consulta.data_hora }}</p>
+                        <p class="text-danger text-black form-control">Status: {{ consulta.status }}</p>
+                      </div>
+                      <div class="col-lg-4">
+                        <form method="post">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger"><span class="fa fa-trash-can pr-2"></span> Apagar consulta</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>

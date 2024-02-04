@@ -20,26 +20,26 @@ def criar_consulta(request):
 
 def visualizar_consulta(request, consulta_id):
     consulta = get_object_or_404(Consultas, pk=consulta_id)
-    return render(request, 'consultas/visualizar-consultas.html', {'consulta': consulta})
+    return render(request, 'consultas/visualizar-consulta.html', {'consulta': consulta})
 
 def editar_consulta(request, consulta_id):
     consulta = get_object_or_404(Consultas, pk=consulta_id)
 
     if request.method == 'POST':
-        consultas_form = ConsultaForm(request.POST)
+        consultas_form = ConsultaForm(request.POST, instance=consulta)
         if consultas_form.is_valid:
             consultas_form.save()
-            return redirect('lista_consultas')
+            return redirect('consultas')
     else:
         consultas_form = ConsultaForm(instance=consulta)
 
-    return render(request, 'consultas/editar-consulta.html', {'consultas_form': consultas_form})
+    return render(request, 'consultas/editar-consulta.html', {'consultas_form': consultas_form, 'consulta': consulta})
 
 def deletar_consulta(request, consulta_id):
     consulta = get_object_or_404(Consultas, pk=consulta_id)
 
     if request.method == 'POST':           
         consulta.delete()
-        return redirect('lista_consultas')
+        return redirect('consultas')
  
     return render(request, 'consultas/deletar-consulta.html', {'consulta': consulta})

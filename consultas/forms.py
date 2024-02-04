@@ -5,7 +5,7 @@ from django.utils import timezone
 class ConsultaForm(forms.ModelForm):
     class Meta:
         model = Consultas
-        fields = ['paciente', 'profissional', 'data_hora']
+        fields = ['paciente', 'profissional', 'data_hora', 'status']
         widgets = {
             'data_hora': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
