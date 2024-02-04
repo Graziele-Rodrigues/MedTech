@@ -71,38 +71,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% comment %} {% for historico in historicos %} {% endcomment %}
+                                <a href="{% url 'criar_registro' paciente.id %}" class="btn px-3 py-2 text-white" style="background-color: #CC2B31; border-radius:25px;">Novo Registro Médico</a>
+                                {% for registro in registros %}
                                     <tr>
-                                        <td>Sinusite</td>
-                                        <td>Teste teste teste teste teste teste teste teste teste teste teste teste teste.</td>
+                                        <td>{{registro.tratamento}}</td>
+                                        <td>{{registro.diagnostico}}</td>
                                         <td>
                                             <small class="my-2 mx-1">
-                                                {% comment %} Adicionar rota para editar o histórico href="{% url 'editar_paciente' paciente.id  %}" {% endcomment %}
-                                                <a class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
+                                                <a href="{% url 'editar_registro' registro.id paciente.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
+                                                <a href="{% url 'deletar_registro' registro.id paciente.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Deletar"><span class="fa fa-trash fa-1x"></span></a>
                                             </small>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Febre</td>
-                                        <td>Teste teste teste teste teste teste teste teste teste teste teste teste teste.</td>
-                                        <td>
-                                            <small class="my-2 mx-1">
-                                                {% comment %} Adicionar rota para editar o histórico href="{% url 'editar_paciente' paciente.id  %}" {% endcomment %}
-                                                <a class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
-                                            </small>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dor de cabeça</td>
-                                        <td>Teste teste teste teste teste teste teste teste teste teste teste teste teste.</td>
-                                        <td>
-                                            <small class="my-2 mx-1">
-                                                {% comment %} Adicionar rota para editar o histórico href="{% url 'editar_paciente' paciente.id  %}" {% endcomment %}
-                                                <a class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
-                                            </small>
-                                        </td>
-                                    </tr>
-                                {% comment %} {% endfor %} {% endcomment %}
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>

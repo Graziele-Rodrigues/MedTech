@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'consultas',
     'login',
     'relatorios',
+    'registros',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Paciente
+from registros.models import RegistroMedico
 from .forms import PacienteForm
 from django.shortcuts import redirect
 
@@ -43,4 +44,5 @@ def delete_paciente(request, paciente_id):
 def visualizar_paciente(request, paciente_id):
     paciente = get_object_or_404(Paciente, pk=paciente_id)
     alergias =  'Teste, Teste, Teste, Teste'
-    return render(request, 'pacientes/visualizar_paciente.html', {'paciente': paciente, 'alergias': alergias})
+    registros = RegistroMedico.objects.filter(paciente__id=paciente_id)
+    return render(request, 'pacientes/visualizar_paciente.html', {'paciente': paciente, 'alergias': alergias, 'registros': registros})
