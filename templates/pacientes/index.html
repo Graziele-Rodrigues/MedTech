@@ -1,45 +1,107 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="overflow-x:hidden;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sua Página Inicial</title>
-</head>
-<body>
-<a href="{% url 'criar_paciente' %}"><button>Criar Paciente</button></a>
-<table border="1">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Telefone secundário</th>
-            <th>Data de nascimento</th>
-            <th>Plano de saúde</th>
-            <th>Endereço</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for paciente in pacientes %}
-            <tr>
-                <td>{{ paciente.nome }}</td>
-                <td>{{ paciente.telefone }}</td>
-                <td>{{ paciente.telefone_secundario }}</td>
-                <td>{{ paciente.data_nascimento }}</td>
-                {% if paciente.plano_saude %}
-                    <td>{{paciente.plano_saude}}</td>
-                {% else %}
-                    <td>Não possui</td>
-                {% endif %}
-                <td>{{ paciente.endereco }}</td>
-                <td><a href="{% url 'editar_paciente' paciente.id %}">Editar</a></td>
-                <td><a href="{% url 'deletar_paciente' paciente.id %}">Deletar</a></td>
-                <td><a href="">Criar consulta</a></td>
-                <td><a href="">Visualizar historico</a></td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <link rel="stylesheet" href="{% static 'all.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...SuaHashAqui..." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 
+    <title>MedTech | Pacientes</title>
+</head>
+<body class="vh-100">
+    <div class="col-12 no-padding">
+        <div class="row w-100">
+            {% comment %} MENU {% endcomment %}
+            <div class="col-lg-2 col-md-3 col-sm-12 pb-4" style="background-color: #CC2B31;">
+                {% include 'menu.html' %}
+            </div>
+            {% comment %} END MENU {% endcomment %}
+
+            <div class="col-lg-10 col-md-9 col-sm-12 no-padding">
+                <div class="col-12 px-4">
+                    <div class="row pt-5 mb-4">
+                        <h2 style="color: #CC2B31;"><span class="fa fa-users pr-3"></span> Gestão de Pacientes</h2>
+                    </div>
+                    <div class="row pt-2 mt-3 mb-2">
+                        <div class="col-6">
+                            <a href="{% url 'criar_paciente' %}" class="btn px-3 py-2 text-white" style="background-color: #CC2B31; border-radius:25px;">Novo Paciente</a>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row mt-3 px-3">
+                            <table id="table-pacientes" border="1" class="table table-bordered table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Telefone</th>
+                                        <th>Telefone secundário</th>
+                                        <th>Data de nascimento</th>
+                                        <th>Plano de saúde</th>
+                                        <th>Endereço</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for paciente in pacientes %}
+                                        <tr>
+                                            <td>{{ paciente.nome }}</td>
+                                            <td>{{ paciente.telefone }}</td>
+                                            <td>{{ paciente.telefone_secundario }}</td>
+                                            <td>{{ paciente.data_nascimento }}</td>
+                                            {% if paciente.plano_saude %}
+                                                <td>{{paciente.plano_saude}}</td>
+                                            {% else %}
+                                                <td>Não possui</td>
+                                            {% endif %}
+                                            <td>{{ paciente.endereco }}</td>
+                                            <td>
+                                                {% comment %} VALIDAR SE O USUÁRIO É ATENDENTE, CASO SIM MOSTRAR A PRIMEIRA OPÇÃO {% endcomment %}
+                                                {% comment %} {% if user.groups.filter(name="admin") || user.groups.filter(name="atendente") %} 
+                                                <small class="my-2 mx-1">
+                                                    <a href="{% url 'editar_paciente' paciente.id  %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
+                                                </small>
+                                                <small class="my-2 mx-1">
+                                                    <a href="{% url 'deletar_paciente' paciente.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Deletar"><span class="fa fa-trash fa-1x"></span></a>
+                                                </small>
+                                                {% else %} {% endcomment %}
+                                                <small class="my-2 mx-1">
+                                                    <a href="{% url 'visualizar_paciente' paciente.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Visualizar"><span class="fa fa-eye fa-1x"></span></a>
+                                                </small>
+                                                {% comment %} {% endif %} {% endcomment %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new DataTable('#table-pacientes', {
+                order: [
+                    [3, 'desc']
+                ],
+                scrollX: true,
+                scrollY: 200,
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json",
+                    zeroRecords: 'Não foi encontrado nada, desculpe!'
+                },
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </body>
 </html>

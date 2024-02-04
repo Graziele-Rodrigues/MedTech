@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" style="overflow-x:hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'all.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...SuaHashAqui..." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+    <title>MedTech | Relatórios</title>
+</head>
+<body class="vh-100">
+    <div class="col-12 no-padding">
+        <div class="row w-100">
+            {% comment %} MENU {% endcomment %}
+            <div class="col-lg-2 col-md-3 col-sm-12 pb-4" style="background-color: #CC2B31;">
+                {% include 'menu.html' %}
+            </div>
+            {% comment %} END MENU {% endcomment %}
+
+            <div class="col-lg-10 col-md-9 col-sm-12 no-padding">
+                <div class="col-12 px-4">
+                    <div class="row pt-5 mb-4">
+                        <h2 style="color: #CC2B31;"><span class="fa fa-area-chart pr-3"></span> Relatórios</h2>
+                    </div>
+                    <div class="col-12">
+                        <div class="row mt-3 px-3 d-flex justify-content-center align-items-center">
+                            <div class="col-lg-6 col-md-6 col-sm-12 my-3">
+                                <div class="card text-white text-center py-4" style="background-color: #CC2B31;">
+                                    <div class="card-body" style="height:150px;">
+                                        <br>
+                                        <h4 class="card-title text-wrap text-truncate">Relatório dos Pacientes</h4>
+                                        <br>
+                                        <a href="{% url 'relatorio_pacientes' %}" class="btn btn-light w-100 text-wrap text-truncate" style="color: #CC2B31; font-weight:bolder;"><span class="fa fa-chart-bar pr-2"></span> Gerar Relatório</a>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 my-3">
+                                <div class="card text-white text-center py-4" style="background-color: #CC2B31;">
+                                    <div class="card-body" style="height:150px;">
+                                        <br>
+                                        <h4 class="card-title text-wrap text-truncate">Relatório dos Consultas</h4>
+                                        <br>
+                                        <a href="{% url 'relatorio_pacientes' %}" class="btn btn-light w-100 text-wrap text-truncate" style="color: #CC2B31; font-weight:bolder;"><span class="fa fa-chart-bar pr-2"></span> Gerar Relatório</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 my-3">
+                                <div class="card text-white text-center py-4" style="background-color: #CC2B31;">
+                                    <div class="card-body" style="height:150px;">
+                                        <br>
+                                        <h4 class="card-title text-wrap text-truncate">Relatório de Atendentes</h4>
+                                        <br>
+                                        <a href="{% url 'relatorio_atendentes' %}" class="btn btn-light w-100 text-wrap text-truncate" style="color: #CC2B31; font-weight:bolder;"><span class="fa fa-chart-bar pr-2"></span> Gerar Relatório</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 my-3">
+                                <div class="card text-white text-center py-4" style="background-color: #CC2B31;">
+                                    <div class="card-body" style="height:150px;">
+                                        <br>
+                                        <h4 class="card-title text-wrap text-truncate">Relatório de Profissionais da Saúde</h4>
+                                        <a href="{% url 'relatorio_profissional_saude' %}" class="btn btn-light w-100 text-wrap text-truncate" style="color: #CC2B31; font-weight:bolder;"><span class="fa fa-chart-bar pr-2"></span> Gerar Relatório</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new DataTable('#table-consultas', {
+                order: [
+                    [3, 'desc']
+                ],
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json",
+                    zeroRecords: 'Não foi encontrado nada, desculpe!'
+                },
+            });
+        } );
+      
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</body>
+</html>

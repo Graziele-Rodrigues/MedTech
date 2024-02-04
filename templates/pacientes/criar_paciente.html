@@ -1,19 +1,120 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Paciente</title>
+    <link rel="stylesheet" href="{% static 'all.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...SuaHashAqui..." crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <title>MedTech | Pacientes</title>
 </head>
 <body>
+    <div class="col-12 no-padding">
+        <div class="row w-100">
+            {% comment %} MENU {% endcomment %}
+            <div class="col-lg-2 col-md-3 col-sm-12 pb-4" style="background-color: #CC2B31;">
+                {% include 'menu.html' %}
+            </div>
+            {% comment %} END MENU {% endcomment %}
 
-<h2>Criar Paciente</h2>
-<a href="{% url 'index' %}"><button>Lista de pacientes</button></a>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Salvar</button>
-</form>
+            <div class="col-lg-10 col-md-9 col-sm-12 no-padding">
+                <div class="col-12 px-4">
+                    <div class="row pt-5 mb-4">
+                        <h2 style="color: #CC2B31;"><span class="fa fa-users pr-3"></span> Gestão de Pacientes - Criação</h2>
+                    </div>
+                    <div>
+                        <a href="{% url 'index' %}" style="background-color: #CC2B31;" class="btn btn-default btn-sm text-white px-2 py-1"><span class="fa fa-arrow-left fa-1x"></span> Voltar</a>
+                    </div>
+                    <div class="row shadow my-3 py-4 px-2">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <label for="{{ pacientes_form.nome.id_for_label }}">Nome:</label>
+                                {{ pacientes_form.nome }}
+                            </div>
+                            <div class="row my-3">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label for="{{ pacientes_form.telefone.id_for_label }}">Telefone:</label>
+                                    {{ pacientes_form.telefone }}
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label for="{{ pacientes_form.telefone_secundario.id_for_label }}">Telefone secundário:</label>
+                                    {{ pacientes_form.telefone_secundario }}
+                                </div>
+                            </div>
+                        
+                            <div class="row my-3">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label for="{{ pacientes_form.data_nascimento.id_for_label }}">Data de Nascimento:</label>
+                                    {{ pacientes_form.data_nascimento }}
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <label for="{{ pacientes_form.plano_saude.id_for_label }}">Plano de Saúde:</label>
+                                    {{ pacientes_form.plano_saude }}
+                                </div>
+                            </div>
+                        
+                            <div class="row my-3">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <label for="{{ pacientes_form.endereco.id_for_label }}">Endereço:</label>
+                                    <div class="col-12">
+                                        {{ pacientes_form.endereco }}
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <button class="btn btn-default px-3 py-2 w-75 text-white" style="background-color: #CC2B31;" type="submit">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <style>
+        label {
+            color: #CC2B31;
+            font-weight:bold;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                if (input.type !== 'checkbox' && input.type !== 'radio') {
+                    input.classList.add('form-control');
+                } else {
+                    input.classList.add('form-check-input');
+                }
+            });
+
+            const nome = document.querySelector('input[name="nome"]');
+            nome.setAttribute('placeholder', 'Digite o nome completo');
+
+            const telefone = document.querySelector('input[name="telefone"]');
+            telefone.setAttribute('type', 'tel');
+            telefone.setAttribute('pattern', '[0-9]{2} [0-9]{5}-[0-9]{4}');
+            telefone.setAttribute('placeholder', '00 00000-0000');
+
+            const telefone2 = document.querySelector('input[name="telefone_secundario"]');
+            telefone2.setAttribute('type', 'tel');
+            telefone2.setAttribute('pattern', '[0-9]{2} [0-9]{5}-[0-9]{4}');
+            telefone2.setAttribute('placeholder', '00 00000-0000');
+
+            const plano_saude = document.querySelector('input[name="plano_saude"]');
+            plano_saude.setAttribute('placeholder', 'Digite o plano de saúde');
+
+            const endereco = document.querySelector('textarea[name="endereco"]');
+            endereco.setAttribute('placeholder', 'Digite o endereço completo');
+            endereco.classList.add('w-100');
+        });
+    </script>
 </body>
 </html>

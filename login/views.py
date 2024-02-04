@@ -1,17 +1,16 @@
-from django.shortcuts import render
-from .forms import LoginForm
 
-def index(request):
-    return render(request, 'login/index.html')
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from pacientes.models import Paciente
 
-def login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            senha = form.cleaned_data['senha']
-            # Validar se senha corresponde ao email
-            return render(request, 'login/tela-inicial.html')
-        else:
-            # O formulário não é válido, exception
-            return render(request, 'login/index.html')
+def tela_inicial(request):
+    pacientes = Paciente.objects.all()
+    return render(request,'registration/tela-inicial.html', {'pacientes': pacientes})
+
+# FUNÇÕES APENAS PARA CRIAÇÃO DO FRONT-END
+def consultas(request):
+    return render(request, 'consultas/consultas.html')
+
+def visualizar_consulta(request):
+    return render(request, 'consultas/visualizar-consulta.html')

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...SuaHashAqui..." crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 
-    <title>MedTech | Funcionários</title>
+    <title>MedTech | Tela Inicial</title>
 </head>
 <body class="vh-100">
     <div class="col-12 no-padding">
@@ -24,51 +24,37 @@
             <div class="col-lg-10 col-md-9 col-sm-12 no-padding">
                 <div class="col-12 px-4">
                     <div class="row pt-5 mb-4">
-                        <h2 style="color: #CC2B31;"><span class="fa fa-hospital-user pr-3"></span> Gestão de Funcionários</h2>
-                    </div>
-                    <div class="row pt-2 mt-3">
-                        <div class="col-6">
-                            <a href="{% url 'cria_funcionario' %}" class="btn px-3 py-2 text-white" style="background-color: #CC2B31; border-radius:25px;">Novo Funcionário</a>
-                        </div>
+                        <h2 style="color: #CC2B31;"><span class="fa fa-home pr-3"></span> Tela Inicial</h2>
+                        <br>
+                        <h5 style="color: #CC2B31;">Atendimentos do dia:</h5>
                     </div>
                     <div class="col-12">
                         <div class="row mt-3 px-3">
-                            <table id="table-funcionario" style="100%" border="1" class="table table-bordered table-responsive">
+                            <table id="table-consultas" border="1" class="table table-bordered table-responsive">
                                 <thead>
                                     <tr>
-                                        <th>Nome</th>
+                                        <th>Paciente</th>
                                         <th>Telefone</th>
-                                        <th>Cargo</th>
-                                        <th>Salário</th>
-                                        <th>Registro CC</th>
-                                        <th>Especialidade</th>
+                                        <th>Médico</th>
+                                        <th>Horário</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for funcionario in funcionarios %}
+                                    {% comment %} {% for consulta in consultas %} {% endcomment %}
                                         <tr>
-                                            <td>{{ funcionario.nome }}</td>
-                                            <td>{{ funcionario.telefone }}</td>
-                                            <td>{{ funcionario.cargo }}</td>
-                                            <td>{{ funcionario.salario }}</td>
-                                            {% if funcionario.cargo|lower == 'profissional de saúde' %}
-                                                <td>{{ funcionario.profissionalsaude.registro_cc }}</td>
-                                                <td>{{ funcionario.profissionalsaude.especialidade.all|join:", " }}</td>
-                                            {% else %}
-                                                <td>-</td>
-                                                <td>-</td>
-                                            {% endif %}
+                                            <td>Teste paciente</td>
+                                            <td>Teste paciente telefone</td>
+                                            <td>Teste Médico</td>
+                                            <td>20/05/2024 14:00</td>
                                             <td>
                                                 <small class="my-2 mx-1">
-                                                    <a href="{% url 'edita_funcionario' funcionario.id  %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
-                                                </small>
-                                                <small class="my-2 mx-1">
-                                                    <a href="{% url 'deleta_funcionario' funcionario.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Deletar"><span class="fa fa-trash fa-1x"></span></a>
+                                                    {% comment %} Adicionar rota para visualizar uma Consulta href="{% url 'deletar_paciente' paciente.id %}" {% endcomment %}
+                                                    <a class="btn btn-dark btn-sm" style="border-radius:50%;" href="{% url 'visualizar-consulta' %}" data-toggle="tooltip" title="Visualizar"><span class="fa fa-eye fa-1x"></span></a>
                                                 </small>
                                             </td>
                                         </tr>
-                                    {% endfor %}
+                                    {% comment %} {% endfor %} {% endcomment %}
                                 </tbody>
                             </table>
                         </div>
@@ -80,12 +66,17 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            new DataTable('#table-funcionario', {
+            new DataTable('#table-consultas', {
+                order: [
+                    [3, 'desc']
+                ],
                 language: {
                     "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json",
+                    zeroRecords: 'Não foi encontrado nada, desculpe!'
                 },
             });
-        });
+        } );
+      
     </script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>

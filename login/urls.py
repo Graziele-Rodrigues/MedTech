@@ -1,8 +1,9 @@
-from django.urls import path
-from login.views import index
-from login.views import login
+from django.urls import path, include
+from login.views import tela_inicial, visualizar_consulta, consultas
 
 urlpatterns = [
-    path('', index),
-    path('autenticacao/', login, name='login'),
+    path('tela_inicial/', tela_inicial, name="tela-inicial"),
+    path('consultas/', consultas, name="consultas"),
+    path('visualizar_consulta/', visualizar_consulta, name="visualizar-consulta"),
+    path('', include('django.contrib.auth.urls')),  # Coloque isso no final das suas URLs
 ]

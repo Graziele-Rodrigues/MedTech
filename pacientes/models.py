@@ -10,3 +10,7 @@ class Paciente(models.Model):
 
     def __str__(self):
         return self.nome
+    
+    def idade(self):
+        from datetime import date
+        return date.today().year - self.data_nascimento.year

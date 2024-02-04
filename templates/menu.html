@@ -1,0 +1,64 @@
+{% load static %}
+
+<div>
+    <div class="col-12 vh-100">
+        <div class="row d-flex justify-content-center align-items-center">
+            <img src="{% static 'images/MedTech-LogoVermelha.png' %}" alt="Logo MedTech" class="img-fluid" style="max-height:18rem;max-width:18rem;">
+        </div>
+        <div class="row d-flex justify-content-center align-items-center mb-3">
+            {% if request.path == '/tela_inicial' %}
+            <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
+                <a class="w-100 h-100 btn btn-default" style="color: #CC2B31; font-weight:bold;" href="{% url 'tela-inicial' %}">Tela Inicial</a>
+            </div>
+            {% else %}
+            <div class="border border-2 border-white py-2 px-1 w-100 text-center text-white">
+                <a class="w-100 h-100 btn btn-default text-white" href="{% url 'tela-inicial' %}">Tela Inicial</a>
+            </div>
+            {% endif %}
+
+            {% if request.path == '/pacientes/' or request.path == '/pacientes/criar_paciente/' or '/pacientes/editar_paciente/' in request.path or '/pacientes/deletar_paciente/' in request.path %}
+            <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
+                <a class="w-100 h-100 btn btn-default" href="{% url 'index' %}" style="color: #CC2B31; font-weight:bold;">Pacientes</a>
+            </div>
+            {% else %}
+            <div class="border border-2 border-white py-2 px-1 w-100 text-center text-white">
+                <a class="w-100 h-100 btn btn-default text-white" href="{% url 'index' %}">Pacientes</a>
+            </div>
+            {% endif %}
+
+            {% comment %} {% if user.groups.filter(name="admin") || user.groups.filter(name="atendente") %} {% endcomment %}
+
+            {% if request.path == '/consultas' or request.path == '/visualizar_consulta' %}
+            <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
+                <a class="w-100 h-100 btn btn-default" href="{% url 'consultas' %}" style="color: #CC2B31; font-weight:bold;">Consultas</a>
+            </div>
+            {% else %}
+            <div class="border border-2 border-white py-2 px-1 w-100 text-center text-white">
+                <a class="w-100 h-100 btn btn-default text-white" href="{% url 'consultas' %}">Consultas</a>
+            </div>
+            {% endif %}
+
+            {% if request.path == '/funcionarios/' or request.path == '/funcionarios/new' or '/funcionarios/update/' in request.path or '/funcionarios/delete/' in request.path %}
+            <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
+                <a class="w-100 h-100 btn btn-default" href="{% url 'lista_funcionario' %}" style="color: #CC2B31; font-weight:bold;">Funcionários</a>
+            </div>
+            {% else %}
+            <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                <a class="w-100 h-100 btn btn-default text-white" href="{% url 'lista_funcionario' %}">Funcionários</a>
+            </div>
+            {% endif %}
+
+            {% if request.path == '/relatorios/' %}
+            <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
+                <a class="w-100 h-100 btn btn-default"  style="color: #CC2B31; font-weight:bold;" href="{% url 'relatorios' %}">Relatórios</a>
+            </div>
+            {% else %}
+            <div class="border border-2 border-white py-2 px-1 w-100 text-center">
+                <a class="w-100 h-100 btn btn-default text-white" href="{% url 'relatorios' %}">Relatórios</a>
+            </div>
+            {% endif %}
+
+            {% comment %} {% endif %} {% endcomment %}
+        </div>
+    </div>
+</div>

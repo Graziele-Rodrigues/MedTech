@@ -1,0 +1,129 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" style="overflow-x:hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'all.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...SuaHashAqui..." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+    <title>MedTech | Pacientes</title>
+</head>
+<body class="vh-100">
+    <div class="col-12 no-padding">
+        <div class="row w-100">
+            {% comment %} MENU {% endcomment %}
+            <div class="col-lg-2 col-md-3 col-sm-12 pb-4" style="background-color: #CC2B31;">
+                {% include 'menu.html' %}
+            </div>
+            {% comment %} END MENU {% endcomment %}
+
+            <div class="col-lg-10 col-md-9 col-sm-12 no-padding">
+                <div class="col-12 px-4">
+                    <div class="row pt-5 mb-4">
+                        <h2 style="color: #CC2B31;"><span class="fa fa-calendar-check pr-3"></span> Gestão de Consultas</h2>
+                    </div>
+                    <div>
+                        <a href="{% url 'index' %}" style="background-color: #CC2B31;" class="btn btn-default btn-sm text-white px-2 py-1"><span class="fa fa-arrow-left fa-1x"></span> Voltar</a>
+                    </div>
+                    <div class="col-12 pb-3 mb-3 mx-auto">
+                        <div class="row mt-3 px-3 shadow text-white py-3 px-2" style="background-color: #A6A6A6; border-radius:25px;">
+                            <div class="col-lg-3 col-md-3 col-sm-4">
+                                <div class="col-12 h-100 w-100">
+                                    <br>
+                                    <div class="row d-flex justify-content-center align-items-center">
+                                        <span class="fa fa-user-circle fa-5x"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-8">
+                                <div class="col-12">
+                                  <label>Nome paciente:</label>
+                                  <h5>{{paciente.nome}}</h5>
+                                </div>
+                                <div class="col-12">
+                                  <label>Data de nascimento:</label>
+                                  <h5>{{paciente.data_nascimento}}</h5>
+                                </div>
+                                <div class="col-12">
+                                  <label>Idade:</label>
+                                  <h5>{{paciente.idade}} anos</h5>
+                                </div>
+                                <div class="row mt-3 shadow py-2 px-1" style="background-color: #E5E5E5; color:#A6A6A6;">
+                                    <div class="col-12">
+                                        <small><h5><span class="fa fa-warning pr-2"></span> Alergias:</h5></small>
+                                        <small><h6>{{ alergias }}</h6></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 pb-3 mb-4">
+                        <table id="table-historico" border="1" class="table table-bordered table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Tratamentos</th>
+                                    <th>Diagnóstico</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% comment %} {% for historico in historicos %} {% endcomment %}
+                                    <tr>
+                                        <td>Sinusite</td>
+                                        <td>Teste teste teste teste teste teste teste teste teste teste teste teste teste.</td>
+                                        <td>
+                                            <small class="my-2 mx-1">
+                                                {% comment %} Adicionar rota para editar o histórico href="{% url 'editar_paciente' paciente.id  %}" {% endcomment %}
+                                                <a class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
+                                            </small>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Febre</td>
+                                        <td>Teste teste teste teste teste teste teste teste teste teste teste teste teste.</td>
+                                        <td>
+                                            <small class="my-2 mx-1">
+                                                {% comment %} Adicionar rota para editar o histórico href="{% url 'editar_paciente' paciente.id  %}" {% endcomment %}
+                                                <a class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
+                                            </small>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dor de cabeça</td>
+                                        <td>Teste teste teste teste teste teste teste teste teste teste teste teste teste.</td>
+                                        <td>
+                                            <small class="my-2 mx-1">
+                                                {% comment %} Adicionar rota para editar o histórico href="{% url 'editar_paciente' paciente.id  %}" {% endcomment %}
+                                                <a class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
+                                            </small>
+                                        </td>
+                                    </tr>
+                                {% comment %} {% endfor %} {% endcomment %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new DataTable('#table-historico', {
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json",
+                    zeroRecords: 'Não foi encontrado nada, desculpe!'
+                },
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</body>
+</html>
