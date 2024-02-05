@@ -33,8 +33,7 @@
                         <form method="POST">
                             {% csrf_token %}
                             {{ form }}
-                            <label for="{{ form.paciente.id_for_label }}">Paciente:</label><br>
-                            <div class="row d-flex justify-content-center align-items-center">
+                            <div class="row d-flex justify-content-center align-items-center mt-3">
                                 <button type="submit" class="btn text-white w-50" style="background-color: #CC2B31;">Salvar</button>
                             </div>
                         </form>
@@ -53,7 +52,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            //table-historico
             const inputs = document.querySelectorAll(['textarea', 'select']);
             inputs.forEach(input => {
                 input.classList.add('form-control');
