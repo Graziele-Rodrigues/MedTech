@@ -51,5 +51,28 @@
             </div>
         </div>
     </div>
+
+    <style>
+        label {
+            color: #CC2B31;
+            font-weight:bold;
+        }
+        ul{list-style-type:none; margin:0; padding:0;};
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.classList.add('form-control');
+            });
+
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                select.classList.add('form-select');
+            });
+        });
+    </script>
+
 </div>
 </html>

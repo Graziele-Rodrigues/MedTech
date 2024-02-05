@@ -61,6 +61,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row my-3">
+                        <div class="col-6">
+                            <a href="{% url 'criar_registro' paciente.id %}" class="btn px-3 py-2 text-white" style="background-color: #CC2B31; border-radius:25px;">Novo Registro Médico</a>
+                        </div>
+                    </div>
                     <div class="col-12 pb-3 mb-4">
                         <table id="table-historico" border="1" class="table table-bordered table-responsive">
                             <thead>
@@ -71,7 +76,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <a href="{% url 'criar_registro' paciente.id %}" class="btn px-3 py-2 text-white" style="background-color: #CC2B31; border-radius:25px;">Novo Registro Médico</a>
                                 {% for registro in registros %}
                                     <tr>
                                         <td>{{registro.tratamento}}</td>
