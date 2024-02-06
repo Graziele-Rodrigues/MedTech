@@ -46,7 +46,7 @@
                             <tbody>
                                 {% for consulta in consultas %}
                                     <tr>
-                                        <td>{{ consulta.paciente }}</td>
+                                        <td>{{ consulta.paciente.nome }}</td>
                                         <td>{{ consulta.paciente.telefone }}</td>
                                         <td>{{ consulta.profissional }}</td>
                                         <td>{{ consulta.data_hora }}</td>

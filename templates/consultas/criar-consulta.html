@@ -43,6 +43,10 @@
                             <label for="{{ consultas_form.data_hora.id_for_label }}">Data e hora:</label>
                             {{ consultas_form.data_hora }}
                         </div>
+                        <div class="col-lg-8 col-md-8 col-sm-12 py-2" style="display: none;"    >
+                            <label for="{{ consultas_form.data_hora.id_for_label }}">Status</label>
+                            {{ consultas_form.status }}
+                        </div>
                         <div class="row d-flex justify-content-center align-items-center">
                             <button class="btn btn-default px-3 py-2 w-75 text-white" style="background-color: #CC2B31;" type="submit">Salvar</button>
                         </div>

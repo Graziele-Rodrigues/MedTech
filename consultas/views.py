@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Consultas
 from .forms import ConsultaForm
 
-
 def consultas(request):
     consultas = Consultas.objects.all()
     return render(request, 'consultas/consultas.html', {'consultas': consultas})
