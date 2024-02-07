@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect
-
 from .models import Funcionarios, ProfissionalSaude
 from .forms import FuncionariosForm, ProfissionalSaudeForm
+from django.contrib.auth.decorators import user_passes_test
 
+def atendente(user):
+    return user.groups.filter(name='atendente').exists()
 
+@user_passes_test(atendente)
 def lista_funcionarios(request):
     funcionarios = Funcionarios.objects.all()
     return render(request, 'funcionarios/funcionarios.html', {'funcionarios': funcionarios})
 
-
+@user_passes_test(atendente)
 def cria_funcionarios(request):
     funcionarios_form = FuncionariosForm(request.POST or None)
     profissional_saude_form = ProfissionalSaudeForm(request.POST or None)
@@ -36,6 +39,7 @@ def cria_funcionarios(request):
         {'funcionarios_form': funcionarios_form, 'profissional_saude_form': profissional_saude_form}
     )
 
+@user_passes_test(atendente)
 def edita_funcionarios(request, id):
     funcionarios = Funcionarios.objects.get(id=id)
     funcionarios_form = FuncionariosForm(request.POST or None, instance=funcionarios)
@@ -69,7 +73,7 @@ def edita_funcionarios(request, id):
         {'funcionarios_form': funcionarios_form, 'profissional_saude_form': profissional_saude_form, 'funcionarios': funcionarios}
     )
 
-
+@user_passes_test(atendente)
 def deleta_funcionarios(request, id):
     funcionarios = Funcionarios.objects.get(id=id)
 

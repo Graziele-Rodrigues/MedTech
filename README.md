@@ -53,24 +53,33 @@ $ python manage.py migrate
 $ python manage.py createsuperuser
 $ python manage.py runserver
 ```
+# Telas da Aplicação
+
+![Login](img/login.png)
+![ConsultasDiarias](img/ConsultasDiarias.png)
+![TabelaConsulta](img/TabelaConsulta.png)
+![TabelaPaciente](img/TabelaPaciente.png)
+![CriaConsulta](img/CriaConsulta.png)
+![CriaPaciente](img/CriaPaciente.png)
+![VisualizaPaciente](img/VisualizaPaciente.png)
+![EditaFuncionario](img/EditaFuncionario.png)
+![DeletaFuncionario](img/DeletaFuncionario.png)
+![Relatorios](img/Relatorios.png)
 
 
 ## 🛠️ Construído com
 
-* [DjangO](https://www.djangoproject.com/) - Framework de desenvolvimento web em python
+* [Django](https://www.djangoproject.com/) - Framework de desenvolvimento web em python
 
 
 
 ## ✒️ Autores
 
-
-
 * **Graziele** - *Desenvolvedora* - [GitHub Graziele](https://github.com/Graziele-Rodrigues)
 * **Laura** - *Desenvolvedora* -  [GitHub Laura](https://github.com/LauraMarques20)
-* **Paulo** - *Desenvolvedor* - [GitHub Paulo](https://github.com/linkParaPerfil)
-* **Pedro** - *Desenvolvedor* - [GitHub Pedro](https://github.com/linkParaPerfil)
-* **Vinicius** - *Desenvolvedor* - [GitHub Vinicius](https://github.com/linkParaPerfil)
-
+* **Paulo** - *Desenvolvedor* - [GitHub Paulo](https://github.com/Paulolzms)
+* **Pedro** - *Desenvolvedor* - [GitHub Pedro](https://github.com/pedrohvenancio)
+* **Vinicius** - *Desenvolvedor* - [GitHub Vinicius](https://github.com/ViniHubb)
 
 
 
