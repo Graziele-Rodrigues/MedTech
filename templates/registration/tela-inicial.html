@@ -34,27 +34,37 @@
                                 <thead>
                                     <tr>
                                         <th>Paciente</th>
-                                        <th>Telefone</th>
+                                        <th>Telefone do paciente</th>
                                         <th>Médico</th>
                                         <th>Horário</th>
+                                        <th>Status</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% comment %} {% for consulta in consultas %} {% endcomment %}
+                                    {% for consulta in consultas %}
                                         <tr>
-                                            <td>Teste paciente</td>
-                                            <td>Teste paciente telefone</td>
-                                            <td>Teste Médico</td>
-                                            <td>20/05/2024 14:00</td>
+                                            <td>{{ consulta.paciente.nome }}</td>
+                                            <td>{{ consulta.paciente.telefone }}</td>
+                                            <td>{{ consulta.profissional }}</td>
+                                            <td>{{ consulta.data_hora }}</td>
+                                            <td>{{ consulta.status }}</td>
                                             <td>
                                                 <small class="my-2 mx-1">
-                                                    {% comment %} Adicionar rota para visualizar uma Consulta href="{% url 'deletar_paciente' paciente.id %}" {% endcomment %}
-                                                    <a class="btn btn-dark btn-sm" style="border-radius:50%;" href="{% url 'visualizar-consulta' %}" data-toggle="tooltip" title="Visualizar"><span class="fa fa-eye fa-1x"></span></a>
+                                                    {% comment %} Adicionar rota para visualizar uma Consulta href="{% url 'visualizar_paciente' paciente.id %}" {% endcomment %}
+                                                    <a class="btn btn-dark btn-sm" style="border-radius:50%;" href="{% url 'visualizar-consulta' consulta.id %}" data-toggle="tooltip" title="Visualizar"><span class="fa fa-eye fa-1x"></span></a>
+                                                </small>
+                                                <small class="my-2 mx-1">
+                                                    {% comment %} Adicionar rota para deletar uma Consulta href="{% url 'deletar_paciente' paciente.id %}" {% endcomment %}
+                                                    <a class="btn btn-dark btn-sm" style="border-radius:50%;" href="{% url 'deletar-consulta' consulta.id %}" data-toggle="tooltip" title="Deletar"><span class="fa fa-trash fa-1x"></span></a>
+                                                </small>
+                                                <small class="my-2 mx-1">
+                                                    {% comment %} Adicionar rota para deletar uma Consulta href="{% url 'editar_paciente' paciente.id %}" {% endcomment %}
+                                                    <a class="btn btn-dark btn-sm" style="border-radius:50%;" href="{% url 'editar-consulta' consulta.id %}" data-toggle="tooltip" title="Editar"><span class="fa fa-pencil fa-1x"></span></a>
                                                 </small>
                                             </td>
                                         </tr>
-                                    {% comment %} {% endfor %} {% endcomment %}
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

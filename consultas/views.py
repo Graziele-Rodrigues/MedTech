@@ -3,7 +3,10 @@ from .models import Consultas
 from .forms import ConsultaForm
 
 def consultas(request):
-    consultas = Consultas.objects.all()
+    if request.user.groups.filter(name='profissional_saude').exists():
+        consultas = Consultas.objects.filter(medico=request.user)
+    else:
+        consultas = Consultas.objects.all()
     return render(request, 'consultas/consultas.html', {'consultas': consultas})
 
 def criar_consulta(request):

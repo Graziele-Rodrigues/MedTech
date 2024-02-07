@@ -53,6 +53,83 @@
             </div>
         </div>
     </div>
+
+    <style>
+      label {
+          color: #CC2B31;
+          font-weight:bold;
+      }
+      ul{list-style-type:none; margin:0; padding:0;};
+  </style>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const inputs = document.querySelectorAll('input');
+          inputs.forEach(input => {
+              input.classList.add('form-control');
+          });
+
+          const selects = document.querySelectorAll('select');
+          selects.forEach(select => {
+              select.classList.add('form-select');
+          });
+
+          
+          let data = "{{ consulta.data_hora }}";
+          data = data.replaceAll(' de ', '-').replaceAll(' às ', 'T');
+          data = String(data);
+          if (data.includes('Janeiro')) {
+              data = data.replaceAll('Janeiro', '01');
+          } else if (data.includes('Fevereiro')) {
+              data = data.replaceAll('Fevereiro', '02')
+          } else if (data.includes('Março')) {
+              data = data.replaceAll('Março', '03');
+          } else if (data.includes('Abril')) {
+              data = data.replaceAll('Abril', '04');
+          } else if (data.includes('Maio')) {
+              data = data.replaceAll('Maio', '05');
+          } else if (data.includes('Junho')) {
+              data = data.replaceAll('Junho', '06');
+          } else if (data.includes('Julho')) {
+              data = data.replaceAll('Julho', '07');
+          } else if (data.includes('Agosto')) {
+              data = data.replaceAll('Agosto', '08');
+          } else if (data.includes('Setembro')) {
+              data = data.replaceAll('Setembro', '09');
+          } else if (data.includes('Outubro')) {
+              data = data.replaceAll('Outubro', '10');
+          } else if (data.includes('Novembro')) {
+              data = data.replaceAll('Novembro', '11');
+          } else if (data.includes('Dezembro')) {
+              data.replaceAll('Dezembro', '12');
+          }
+          let hora = data.split('T')[1];
+          let dataSemHora = data.split('T')[0].split('-');
+          console.log(dataSemHora);
+          if (dataSemHora[0] == '1'){
+              dataSemHora[0] = '01';
+          } else if (dataSemHora[0] == '2'){
+              dataSemHora[0] = '02';
+          } else if (dataSemHora[0] == '3'){
+              dataSemHora[0] = '03';
+          } else if (dataSemHora[0] == '4'){
+              dataSemHora[0] = '04';
+          } else if (dataSemHora[0] == '5'){
+              dataSemHora[0] = '05';
+          } else if (dataSemHora[0] == '6'){
+              dataSemHora[0] = '06';
+          } else if (dataSemHora[0] == '7'){
+              dataSemHora[0] = '07';
+          } else if (dataSemHora[0] == '8'){
+              dataSemHora[0] = '08';
+          } else if (dataSemHora[0] == '9'){
+              dataSemHora[0] = '09';
+          }
+          data = String(dataSemHora.reverse().join('-')+'T'+hora);
+          $('#id_data_hora').val(data);
+      });
+  </script>
+
   </div>
 </body>
 </html>

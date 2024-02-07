@@ -26,9 +26,9 @@
             </div>
             {% endif %}
 
-            {% comment %} {% if user.groups.filter(name="admin") || user.groups.filter(name="atendente") %} {% endcomment %}
+            {% comment %} {% if request.user.groups.filter(name="admin") || request.user.groups.filter(name="atendente") %} {% endcomment %}
 
-            {% if request.path == '/consultas/consultas/' or request.path == '/consultas/criar-consulta/' or '/consultas/editar-consulta/' in request.path or '/consultas/visualizar-consulta/' in request.path or '/consultas/deletar-consulta/' in request.path %}
+            {% if request.path == '/consultas/' or request.path == '/consultas/criar-consulta/' or '/consultas/editar-consulta/' in request.path or '/consultas/visualizar-consulta/' in request.path or '/consultas/deletar-consulta/' in request.path %}
             <div class="border border-2 border-white py-2 px-1 w-100 text-center bg-white">
                 <a class="w-100 h-100 btn btn-default" href="{% url 'consultas' %}" style="color: #CC2B31; font-weight:bold;">Consultas</a>
             </div>
