@@ -2,7 +2,17 @@
 
 Sistema para gerenciar um clinica médica, possibilitando, com facilidade, o cadastro de pacientes, consultas realizadas e acompanhamento médico. 
 
-## 🚀 Descrição
+## 🚀 Descrição - diagramas sistema
+
+![UseCase](img/UseCase.jpeg)
+![CriaRegistro](img/CriaRegistro.png)
+![VisualizaExcluiRegistro](img/VisualizaExcluiRegistro.png)
+![CriaPacienteNovo](img/CriaPacienteNovo.png)
+![EditaPaciente](img/EditaPaciente.png)
+![CriaAtendenteNovo](img/CriaAtendenteNovo.png)
+![AgendaConsulta](img/AgendaConsulta.png)
+![EditaConsulta](img/EditaConsulta.png)
+![VisualizaHistoricoMedico](img/VisualizaHistoricoMedico.png)
 
 
 
@@ -53,7 +63,7 @@ $ python manage.py migrate
 $ python manage.py createsuperuser
 $ python manage.py runserver
 ```
-# Telas da Aplicação
+## Telas da Aplicação
 
 ![Login](img/login.png)
 ![ConsultasDiarias](img/ConsultasDiarias.png)
