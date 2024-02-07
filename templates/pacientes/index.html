@@ -27,9 +27,11 @@
                         <h2 style="color: #CC2B31;"><span class="fa fa-users pr-3"></span> Gestão de Pacientes</h2>
                     </div>
                     <div class="row pt-2 mt-3 mb-2">
+                        {% if usuario_autenticado_atendente  %}
                         <div class="col-6">
                             <a href="{% url 'criar_paciente' %}" class="btn px-3 py-2 text-white" style="background-color: #CC2B31; border-radius:25px;">Novo Paciente</a>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="container">
                         <div class="col-lg-12">
@@ -61,19 +63,21 @@
                                                     {% endif %}
                                                     <td>{{ paciente.endereco }}</td>
                                                     <td>
-                                                        {% comment %} VALIDAR SE O USUÁRIO É ATENDENTE, CASO SIM MOSTRAR A PRIMEIRA OPÇÃO {% endcomment %}
-                                                         {% comment %} {% if user.groups.filter(name="admin") || user.groups.filter(name="atendente") %}  {% endcomment %}
+                                                        {% if usuario_autenticado_atendente  %}
                                                         <small class="">
                                                             <a href="{% url 'editar_paciente' paciente.id  %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Editar"><span class="fa fa-pen fa-1x"></span></a>
                                                         </small>
                                                         <small class="">
                                                             <a href="{% url 'deletar_paciente' paciente.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Deletar"><span class="fa fa-trash fa-1x"></span></a>
                                                         </small>
-                                                        {% comment %} {% else %} {% endcomment %}
                                                         <small class="">
                                                             <a href="{% url 'visualizar_paciente' paciente.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Visualizar"><span class="fa fa-eye fa-1x"></span></a>
                                                         </small>
-                                                        {% comment %} {% endif %}  {% endcomment %}
+                                                        {% else %}
+                                                        <small class="">
+                                                            <a href="{% url 'visualizar_paciente' paciente.id %}" class="btn btn-dark btn-sm" style="border-radius:50%;" data-toggle="tooltip" title="Visualizar"><span class="fa fa-eye fa-1x"></span></a>
+                                                        </small>
+                                                        {% endif %}
                                                     </td>
                                                 </tr>
                                             {% endfor %}

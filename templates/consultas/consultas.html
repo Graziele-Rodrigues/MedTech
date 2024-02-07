@@ -27,9 +27,11 @@
                         <h2 style="color: #CC2B31;"><span class="fa fa-calendar-check pr-3"></span> Gestão de Consultas</h2>
                     </div>
                     <div class="row pt-2 my-3">
+                        {% if usuario_autenticado_atendente %}
                         <div class="col-6">
                             <a href="{% url 'criar-consulta' %}" class="btn px-3 py-2 text-white" style="background-color: #CC2B31; border-radius:25px;">Nova Consulta</a>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="col-12 pb-3 my-3 mx-auto">
                         <div class="row">
@@ -59,18 +61,21 @@
                                                     {{ consulta.status.capitalize }}
                                                 </td>
                                                 <td>
+                                                    {% if usuario_autenticado_atendente %}
                                                     <small class="my-2 mx-1">
-                                                        {% comment %} Adicionar rota para visualizar uma Consulta href="{% url 'visualizar_paciente' paciente.id %}" {% endcomment %}
                                                         <a class="btn btn-dark btn-sm" style="border-radius:50%;" href="{% url 'visualizar-consulta' consulta.id %}" data-toggle="tooltip" title="Visualizar"><span class="fa fa-eye fa-1x"></span></a>
                                                     </small>
                                                     <small class="my-2 mx-1">
-                                                        {% comment %} Adicionar rota para deletar uma Consulta href="{% url 'deletar_paciente' paciente.id %}" {% endcomment %}
                                                         <a class="btn btn-dark btn-sm" style="border-radius:50%;" href="{% url 'deletar-consulta' consulta.id %}" data-toggle="tooltip" title="Deletar"><span class="fa fa-trash fa-1x"></span></a>
                                                     </small>
                                                     <small class="my-2 mx-1">
-                                                        {% comment %} Adicionar rota para deletar uma Consulta href="{% url 'editar_paciente' paciente.id %}" {% endcomment %}
                                                         <a class="btn btn-dark btn-sm" style="border-radius:50%;" href="{% url 'editar-consulta' consulta.id %}" data-toggle="tooltip" title="Editar"><span class="fa fa-pencil fa-1x"></span></a>
                                                     </small>
+                                                    {% else %}
+                                                    <small class="my-2 mx-1">
+                                                        <a class="btn btn-dark btn-sm" style="border-radius:50%;" href="{% url 'visualizar-consulta' consulta.id %}" data-toggle="tooltip" title="Visualizar"><span class="fa fa-eye fa-1x"></span></a>
+                                                    </small>
+                                                    {% endif %}
                                                 </td>
                                             </tr>
                                         {% endfor %}

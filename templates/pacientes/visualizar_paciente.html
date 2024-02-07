@@ -52,19 +52,15 @@
                                   <label>Idade:</label>
                                   <h5>{{paciente.idade}} anos</h5>
                                 </div>
-                                <div class="row mt-3 shadow py-2 px-1" style="background-color: #E5E5E5; color:#A6A6A6;">
-                                    <div class="col-12">
-                                        <small><h5><span class="fa fa-warning pr-2"></span> Alergias:</h5></small>
-                                        <small><h6>{{ alergias }}</h6></small>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row my-3">
+                        {% if usuario_autenticado_profissional%}
                         <div class="col-6">
                             <a href="{% url 'criar_registro' paciente.id %}" class="btn px-3 py-2 text-white" style="background-color: #CC2B31; border-radius:25px;">Novo Registro Médico</a>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="col-12 pb-3 mb-4">
                         <table id="table-historico" border="1" class="table table-bordered table-responsive">

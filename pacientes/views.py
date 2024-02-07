@@ -9,9 +9,13 @@ from django.contrib.auth.decorators import user_passes_test
 def atendente(user):
     return user.groups.filter(name='atendente').exists()
 
+def profissionalSaude(user):
+    return user.groups.filter(name='profissional saude').exists()
+
 def index(request):
+    usuario_autenticado_atendente = atendente(request.user)
     pacientes = Paciente.objects.all()
-    return render(request, 'pacientes/index.html', {'pacientes': pacientes})
+    return render(request, 'pacientes/index.html', {'pacientes': pacientes, 'usuario_autenticado_atendente': usuario_autenticado_atendente})
 
 @user_passes_test(atendente)
 def criar_paciente(request):
@@ -50,7 +54,7 @@ def delete_paciente(request, paciente_id):
     return render(request, 'pacientes/delete_paciente.html', {'paciente': paciente})
 
 def visualizar_paciente(request, paciente_id):
+    usuario_autenticado_profissional = profissionalSaude(request.user)
     paciente = get_object_or_404(Paciente, pk=paciente_id)
-    alergias =  'Teste, Teste, Teste, Teste'
     registros = RegistroMedico.objects.filter(paciente__id=paciente_id)
-    return render(request, 'pacientes/visualizar_paciente.html', {'paciente': paciente, 'alergias': alergias, 'registros': registros})
+    return render(request, 'pacientes/visualizar_paciente.html', {'paciente': paciente, 'registros': registros, 'usuario_autenticado_profissional': usuario_autenticado_profissional})

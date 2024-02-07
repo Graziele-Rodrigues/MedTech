@@ -2,12 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Consultas
 from .forms import ConsultaForm
 
+def atendente(user):
+    return user.groups.filter(name='atendente').exists()
+
+def profissionalSaude(user):
+    return user.groups.filter(name='profissional saude').exists()
+
 def consultas(request):
-    if request.user.groups.filter(name='profissional de saude').exists():
-        consultas = Consultas.objects.filter(medico=request.user)
-    else:
-        consultas = Consultas.objects.all()
-    return render(request, 'consultas/consultas.html', {'consultas': consultas})
+    usuario_autenticado_atendente = atendente(request.user)
+    consultas = Consultas.objects.all()
+    return render(request, 'consultas/consultas.html', {'consultas': consultas, 'usuario_autenticado_atendente': usuario_autenticado_atendente})
 
 def criar_consulta(request):
     if request.method == 'POST':
